@@ -1,0 +1,28 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #bdbcbc;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #f8f2f2e0;
+}
+
+.deleteXIcon {
+    color: red;
+}
+
+.createIcon {
+    color: white;
+}
+
+.createTH {
+    background-color: blue;
+}
