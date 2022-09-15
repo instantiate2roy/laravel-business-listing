@@ -11,18 +11,53 @@ th {
     padding: 8px;
 }
 
-tr:nth-child(even) {
-    background-color: #f8f2f2e0;
+tr:hover {
+    background-color: beige;
+}
+
+.lookupEditIcon {
+    background-color: transparent;
+}
+
+.lookupEditIcon:hover {
+    background-color: grey;
+    color: white;
+}
+
+.lookupDeleteIcon {
+    color: red;
+    background-color: transparent;
+}
+
+.lookupDeleteIcon:hover {
+    background-color: orange;
+    color: white;
 }
 
 .deleteXIcon {
     color: red;
 }
 
-.createIcon {
+.lookupCreateIcon {
     color: white;
+}
+
+.lookupBackButton {
+    float: left;
+    color: blue;
 }
 
 .createTH {
     background-color: blue;
+}
+
+.lookupCardTitle {
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+}
+
+.addNewlookupBtn {
+    float: right;
+    color: blue;
 }

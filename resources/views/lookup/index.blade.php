@@ -8,7 +8,17 @@
                 <div class="col-md-9">
                     <div class='card'>
                         <div class="card-header">
-                            Lookup Items
+                            <div class="addNewlookupBtn">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <a href="/lookups/create">
+                                        <button class="btn btn-primary">
+                                            <span class="fa fa-plus lookupCreateIcon" aria-hidden="true">
+                                            </span>
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="lookupCardTitle">Lookup Items</div>
                         </div>
                         <div class="card-body">
                             @if ($lookups->count() > 0)
@@ -19,18 +29,14 @@
                                 <table>
                                     <thead>
                                         <tr>
-                                            
+
                                             <th>Key</th>
                                             <th>Scope</th>
                                             <th>Short Description</th>
                                             <th>Full Description</th>
-                                            <th colspan="2" class='createTH'>
-                                                <a href="/lookups/create">
-                                                    <div class="d-flex align-items-center justify-content-center">
-                                                        <i class="fa fa-plus createIcon" aria-hidden="true"></i>
-                                                    </div></a>
-                                                </th>
-                                            
+                                            <th>Edit</th>
+                                            <th>Delete</th>
+
                                         </tr>
                                     </thead>
 
@@ -39,21 +45,27 @@
                                         @foreach ($lookups as $lookup)
                                             <tr>
 
-                                                
-                                                <td>{{ $lookup->lk_key }}</td>
-                                                <td>{{ $lookup->lk_scope }}</td>
-                                                <td>{{ $lookup->lk_short_description }}</td>
-                                                <td>{{ $lookup->lk_full_description }}</td>
+
                                                 <td>
-                                                    <div class="d-flex align-items-center justify-content-center"><button
-                                                            class='fa fa-pencil'></button>
+                                                    {{ $lookup->lk_key }}</td>
+                                                <td>
+                                                    {{ $lookup->lk_scope }}</td>
+                                                <td>
+                                                    {{ $lookup->lk_short_description }}</td>
+                                                <td>
+                                                    {{ $lookup->lk_full_description }}</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center justify-content-center">
+                                                        <a href="/lookups/{{ $lookup->id }}/edit?{{$lastPageName}}={{$lookups->currentPage()}}"><button
+                                                                class='fa fa-pencil lookupEditIcon'></button>
+                                                        </a>
                                                     </div>
                                                 </td>
                                                 <td>
 
                                                     <div class="d-flex align-items-center justify-content-center">
                                                         {!! Form::open([
-                                                            'action' => ['App\Http\Controllers\LookupsController@destroy', $lookup->lk_id],
+                                                            'action' => ['App\Http\Controllers\LookupsController@destroy', $lookup->id],
                                                             'method' => 'POST',
                                                             'id' => 'deleteLookup',
                                                             'onSubmit' => 'return doSubmit(event, "deleteLookup",' . json_encode($confirmDeleteMsg) . ')',
@@ -61,7 +73,7 @@
 
                                                         {{ Form::hidden('_method', 'DELETE') }}
                                                         {{ Form::hidden($lastPageName, $lookups->currentPage()) }}
-                                                        <button class='fa fa-close deleteXIcon' type="submit"></button>
+                                                        <button class='fa fa-close lookupDeleteIcon' type="submit"></button>
                                                         {!! Form::close() !!}
 
                                                     </div>

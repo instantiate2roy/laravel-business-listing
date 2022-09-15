@@ -14,7 +14,7 @@ class CreateLookupsTable extends Migration
     public function up()
     {
         Schema::create('lookups', function (Blueprint $table) {
-            $table->id('lk_id');
+            $table->id();
             $table->timestamps();
             $table->string('lk_key');
             $table->string('lk_scope');
