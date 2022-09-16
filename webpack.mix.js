@@ -15,7 +15,9 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/sidebar.js', 'public/js')
     .css('resources/css/sidebar.css', 'public/css')
     .css('resources/css/lookupScreens.css', 'public/css')
+    .css('resources/css/ranksScreen.css', 'public/css')
     .css('resources/css/app.css', 'public/css')
+    .css('resources/css/groupsScreen.css', 'public/css')
     .sass('resources/sass/app.scss', 'public/css')
     .sourceMaps();
 mix.browserSync({ proxy: 'http://127.0.0.1' });

@@ -5,15 +5,27 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LookupRequest;
 use App\Models\Lookup;
 use Illuminate\Http\Request;
+use stdClass;
 
 class LookupsController extends Controller
 {
-    protected $paginationPageName = 'lookupPage';
+    protected $paginationPageName = 'lookupsPage';
     protected $lastPageName = 'lookupsLastPage';
+    protected $sidebar;
+
     function __construct()
     {
-
         $this->middleware('auth');
+
+        $this->sidebar = (object) array(
+            'title' => 'Configuration Setup',
+            'titleLevel2' => 'Menus',
+            'items' => (object) array(
+                ['name' => 'Lookup Value Setup', 'url' => '/lookups', 'active' => 'active'],
+                ['name' => 'blank', 'url' => '#', 'active' => ''],
+                ['name' => 'blank', 'url' => '#', 'active' => '']
+            )
+        );
     }
 
     /**
@@ -29,7 +41,9 @@ class LookupsController extends Controller
             ->paginate($perPage = 5, $columns = ['*'], $pageName = $this->paginationPageName);
         $confirmDeleteMsg = 'Are you sure you want to delete this lookup?';
         $lastPageName = $this->lastPageName;
-        return view('lookup.index', compact('lookups', 'lastPageName', 'confirmDeleteMsg'));
+        $sidebar = $this->sidebar;
+
+        return view('lookup.index', compact('lookups', 'lastPageName', 'confirmDeleteMsg', 'sidebar'));
     }
 
     /**
@@ -37,10 +51,15 @@ class LookupsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
-        return view('lookup.create');
+        $lastPageName = $this->lastPageName;
+        $lastPage = $request->query($this->lastPageName);
+        $paginationPageName = $this->paginationPageName;
+        $sidebar = $this->sidebar;
+
+        return view('lookup.create', compact('lastPageName', 'lastPage', 'paginationPageName', 'sidebar'));
     }
 
     /**
@@ -78,7 +97,8 @@ class LookupsController extends Controller
     {
         //
         $lookup = Lookup::find($id);
-        return view('lookup.show', compact('lookup'));
+        $sidebar = $this->sidebar;
+        return view('lookup.show', compact('lookup', 'sidebar'));
     }
 
     /**
@@ -95,7 +115,8 @@ class LookupsController extends Controller
         $lastPageName = $this->lastPageName;
         $lastPage = $request->query($this->lastPageName);
         $paginationPageName = $this->paginationPageName;
-        return view('lookup.update', compact('lookup', 'lastPageName', 'lastPage', 'paginationPageName'));
+        $sidebar = $this->sidebar;
+        return view('lookup.update', compact('lookup', 'lastPageName', 'lastPage', 'paginationPageName', 'sidebar'));
     }
 
     /**
@@ -148,6 +169,6 @@ class LookupsController extends Controller
         if (!$deleted) {
             return redirect("/lookups?$this->paginationPageNamee=$lastPage")->with('error', 'Delete Failed!');
         }
-        return redirect("/lookups?$this->paginationPageName=$lastPage")->with('success', 'Update Successful');
+        return redirect("/lookups?$this->paginationPageName=$lastPage")->with('success', 'Deleted Successfully');
     }
 }

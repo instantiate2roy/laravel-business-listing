@@ -66,7 +66,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="/configuration">Configuration Setup</a>
-                                    <a class="dropdown-item" href="">user Management</a>
+                                    <a class="dropdown-item" href="/userManagement">user Management</a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">

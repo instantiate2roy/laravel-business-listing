@@ -1,28 +1,28 @@
 @Auth
     @extends('layouts.app')
     @section('content')
-        <link href="{{ asset('css/lookupScreens.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/groupsScreen.css') }}" rel="stylesheet">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">@include('inc.sidebar')</div>
                 <div class="col-md-9">
                     <div class='card'>
                         <div class="card-header">
-                            <div class="addNewlookupBtn">
+                            <div class="addNewGroupsBtn">
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <a href="/lookups/create/?{{$lastPageName}}={{$lookups->currentPage()}}">
+                                    <a href="/groups/create?{{$lastPageName}}={{$groups->currentPage()}}">
                                         <button class="btn btn-primary">
-                                            <span class="fa fa-plus lookupCreateIcon" aria-hidden="true">
+                                            <span class="fa fa-plus groupsCreateIcon" aria-hidden="true">
                                             </span>
                                         </button>
                                     </a>
                                 </div>
                             </div>
-                            <div class="lookupCardTitle">Lookup Items</div>
+                            <div class="groupsCardTitle">Groups</div>
                         </div>
                         <div class="card-body">
-                            @if ($lookups->count() > 0)
-                                {{ $lookups->links() }}
+                            @if ($groups->count() > 0)
+                                {{ $groups->links() }}
                                 <br>
                                 <hr>
                                 <br>
@@ -30,10 +30,9 @@
                                     <thead>
                                         <tr>
 
-                                            <th>Key</th>
-                                            <th>Scope</th>
-                                            <th>Short Description</th>
-                                            <th>Full Description</th>
+                                            <th>Code</th>
+                                            <th>Name</th>
+                                            <th>Status</th>
                                             <th>Edit</th>
                                             <th>Delete</th>
 
@@ -42,22 +41,21 @@
 
                                     <tbody>
 
-                                        @foreach ($lookups as $lookup)
+                                        @foreach ($groups as $group)
                                             <tr>
 
 
                                                 <td>
-                                                    {{ $lookup->lk_key }}</td>
+                                                    {{ $group->group_code }}</td>
                                                 <td>
-                                                    {{ $lookup->lk_scope }}</td>
+                                                    {{ $group->group_name }}</td>
                                                 <td>
-                                                    {{ $lookup->lk_short_description }}</td>
-                                                <td>
-                                                    {{ $lookup->lk_full_description }}</td>
+                                                    {{ $group->group_status }}</td>
+                                                
                                                 <td>
                                                     <div class="d-flex align-items-center justify-content-center">
-                                                        <a href="/lookups/{{ $lookup->id }}/edit?{{$lastPageName}}={{$lookups->currentPage()}}"><button
-                                                                class='fa fa-pencil lookupEditIcon'></button>
+                                                        <a href="/groups/{{ $group->id }}/edit?{{$lastPageName}}={{$groups->currentPage()}}"><button
+                                                                class='fa fa-pencil groupEditIcon'></button>
                                                         </a>
                                                     </div>
                                                 </td>
@@ -65,15 +63,15 @@
 
                                                     <div class="d-flex align-items-center justify-content-center">
                                                         {!! Form::open([
-                                                            'action' => ['App\Http\Controllers\LookupsController@destroy', $lookup->id],
+                                                            'action' => ['App\Http\Controllers\GroupsController@destroy', $group->id],
                                                             'method' => 'POST',
-                                                            'id' => 'deleteLookup',
-                                                            'onSubmit' => 'return doSubmit(event, "deleteLookup",' . json_encode($confirmDeleteMsg) . ')',
+                                                            'id' => 'deleteGroup',
+                                                            'onSubmit' => 'return doSubmit(event, "deleteGroup",' . json_encode($confirmDeleteMsg) . ')',
                                                         ]) !!}
 
                                                         {{ Form::hidden('_method', 'DELETE') }}
-                                                        {{ Form::hidden($lastPageName, $lookups->currentPage()) }}
-                                                        <button class='fa fa-close lookupDeleteIcon' type="submit"></button>
+                                                        {{ Form::hidden($lastPageName, $groups->currentPage()) }}
+                                                        <button class='fa fa-close groupDeleteIcon' type="submit"></button>
                                                         {!! Form::close() !!}
 
                                                     </div>
@@ -86,9 +84,9 @@
                                 <br>
                                 <hr>
                                 <br>
-                                {{ $lookups->links() }}
+                                {{ $groups->links() }}
                             @else
-                                !Ooop No Lookup Define Yet.
+                                !Ooop No Groups Defined Yet.
                             @endif
                         </div>
                         <div class="card-footer">

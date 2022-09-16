@@ -9,7 +9,7 @@
                     <div class='card'>
                         <div class='card-header'>
                             <div class="lookupBackButton">
-                                <a href="/lookups">
+                                <a href="/lookups?{{ $paginationPageName }}={{ $lastPage }}">
                                     <button class="btn btn-primary">
                                         <span class="fa fa-arrow-left" aria-hidden="true">
                                         </span> Go Back

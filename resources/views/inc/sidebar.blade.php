@@ -5,24 +5,27 @@
         <svg class="bi me-2" width="30" height="24">
             <use xlink:href="#bootstrap"></use>
         </svg>
-        <span class="fs-5 fw-semibold">Configuration Setup</span>
+        <span class="fs-5 fw-semibold">{{ $sidebar->title }}</span>
     </a>
     <ul class="list-unstyled ps-0">
         <li class="mb-1">
             <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
                 data-bs-target="#home-collapse" aria-expanded="true">
-                Metadata
+                <strong> {{ $sidebar->titleLevel2 }}</strong>
+                <hr>
             </button>
             <div class="collapse show" id="home-collapse">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="/lookups" class="link-dark rounded">Lookups</a></li>
-                    <li><a href="#" class="link-dark rounded">blank</a></li>
-                    <li><a href="#" class="link-dark rounded">Blank</a></li>
+
+                <ul class="btn-toggle-nav list-group fw-normal pb-1 small">
+                    @foreach ($sidebar->items as $item)
+                        <li>
+                            <a href="{{ $item['url'] }}" class="list-group-item {{$item['active']}}">{{ $item['name'] }}</a>
+                        </li>
+                    @endforeach
                 </ul>
+
+
             </div>
         </li>
-
-
-
     </ul>
 </div>
