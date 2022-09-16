@@ -15,34 +15,34 @@ tr:hover {
     background-color: beige;
 }
 
-.groupEditIcon {
+.roleEditIcon {
     background-color: transparent;
 }
 
-.groupEditIcon:hover {
+.roleEditIcon:hover {
     background-color: grey;
     color: white;
 }
 
-.groupDeleteIcon {
+.roleDeleteIcon {
     color: red;
     background-color: transparent;
 }
 
-.groupDeleteIcon:hover {
+.roleDeleteIcon:hover {
     background-color: orange;
     color: white;
 }
 
-.deleteGroupXIcon {
+.deleteRoleXIcon {
     color: red;
 }
 
-.groupsCreateIcon {
+.rolesCreateIcon {
     color: white;
 }
 
-.groupsBackButton {
+.rolesBackButton {
     float: left;
     color: blue;
 }
@@ -51,13 +51,13 @@ tr:hover {
     background-color: blue;
 }
 
-.groupsCardTitle {
+.rolesCardTitle {
     text-align: center;
     font-size: large;
     font-weight: bold;
 }
 
-.addNewGroupsBtn {
+.addNewRolesBtn {
     float: right;
     color: blue;
 }

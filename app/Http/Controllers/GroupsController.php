@@ -20,14 +20,14 @@ class GroupsController extends Controller
             'title' => 'User Management',
             'titleLevel2' => 'Menus',
             'items' => (object) array(
-                ['name' => 'Users', 'url' => '/users', 'active' => ''],
+                ['name' => 'Groups', 'url' => '/groups', 'active' => 'active'],
                 ['name' => 'Ranks', 'url' => '/ranks', 'active' => ''],
-                ['name' => 'Roles', 'url' => 'roles', 'active' => ''],
-                ['name' => 'Roles Groups', 'url' => '/roleGroups', 'active' => 'active']
+                ['name' => 'Roles', 'url' => '/roles', 'active' => ''],
+                ['name' => 'Users', 'url' => '/users', 'active' => '']
             )
         );
 
-        $lookups = Lookup::where('lk_scope', 'RANK')->get();
+        $lookups = Lookup::where('lk_scope', 'GROUPS')->get();
 
         foreach ($lookups as $lookup) {
             $this->groupStatusLookups[$lookup->lk_key] = $lookup->lk_short_description;
