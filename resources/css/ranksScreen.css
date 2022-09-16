@@ -15,34 +15,34 @@ tr:hover {
     background-color: beige;
 }
 
-.lookupEditIcon {
+.rankEditIcon {
     background-color: transparent;
 }
 
-.lookupEditIcon:hover {
+.rankEditIcon:hover {
     background-color: grey;
     color: white;
 }
 
-.lookupDeleteIcon {
+.rankDeleteIcon {
     color: red;
     background-color: transparent;
 }
 
-.lookupDeleteIcon:hover {
+.rankDeleteIcon:hover {
     background-color: orange;
     color: white;
 }
 
-.deleteLookupXIcon {
+.deleteRankXIcon {
     color: red;
 }
 
-.lookupCreateIcon {
+.ranksCreateIcon {
     color: white;
 }
 
-.lookupBackButton {
+.ranksBackButton {
     float: left;
     color: blue;
 }
@@ -51,13 +51,13 @@ tr:hover {
     background-color: blue;
 }
 
-.lookupCardTitle {
+.ranksCardTitle {
     text-align: center;
     font-size: large;
     font-weight: bold;
 }
 
-.addNewlookupBtn {
+.addNewRanksBtn {
     float: right;
     color: blue;
 }

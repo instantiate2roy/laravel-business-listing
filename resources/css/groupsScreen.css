@@ -15,34 +15,34 @@ tr:hover {
     background-color: beige;
 }
 
-.lookupEditIcon {
+.groupEditIcon {
     background-color: transparent;
 }
 
-.lookupEditIcon:hover {
+.groupEditIcon:hover {
     background-color: grey;
     color: white;
 }
 
-.lookupDeleteIcon {
+.groupDeleteIcon {
     color: red;
     background-color: transparent;
 }
 
-.lookupDeleteIcon:hover {
+.groupDeleteIcon:hover {
     background-color: orange;
     color: white;
 }
 
-.deleteLookupXIcon {
+.deletegroupXIcon {
     color: red;
 }
 
-.lookupCreateIcon {
+.groupsCreateIcon {
     color: white;
 }
 
-.lookupBackButton {
+.groupsBackButton {
     float: left;
     color: blue;
 }
@@ -51,13 +51,13 @@ tr:hover {
     background-color: blue;
 }
 
-.lookupCardTitle {
+.groupsCardTitle {
     text-align: center;
     font-size: large;
     font-weight: bold;
 }
 
-.addNewlookupBtn {
+.addNewGroupsBtn {
     float: right;
     color: blue;
 }
