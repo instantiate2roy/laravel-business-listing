@@ -37,7 +37,7 @@ Route::get('/configuration', function () {
             ['name' => 'blank', 'url' => '#', 'active' => '']
         )
     );
-    return view('configuration.configuration',compact('sidebar'));
+    return view('configuration.configuration', compact('sidebar'));
 })->name('configuration');
 
 Route::get('/userManagement', function () {
@@ -45,13 +45,13 @@ Route::get('/userManagement', function () {
         'title' => 'User Management',
         'titleLevel2' => 'Menus',
         'items' => (object) array(
-            ['name' => 'Users', 'url' => '/users', 'active' => ''],
+            ['name' => 'Groups', 'url' => '/groups', 'active' => ''],
             ['name' => 'Ranks', 'url' => '/ranks', 'active' => ''],
-            ['name' => 'Roles', 'url' => 'roles', 'active' => ''],
-            ['name' => 'Groups', 'url' => '/groups', 'active' => '']
+            ['name' => 'Roles', 'url' => '/roles', 'active' => ''],
+            ['name' => 'Users', 'url' => '/users', 'active' => ''],
         )
     );
-    return view('userManagement.userManagement',compact('sidebar'));
+    return view('userManagement.userManagement', compact('sidebar'));
 })->name('userManagement');
 
 Route::resource('/lookups', App\Http\Controllers\LookupsController::class);
@@ -59,3 +59,5 @@ Route::resource('/lookups', App\Http\Controllers\LookupsController::class);
 Route::resource('/ranks', App\Http\Controllers\RanksController::class);
 
 Route::resource('/groups', App\Http\Controllers\GroupsController::class);
+
+Route::resource('/roles', App\Http\Controllers\RolesController::class);

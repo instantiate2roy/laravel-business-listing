@@ -2,6 +2,7 @@
     "/js/app.js": "/js/app.js",
     "/js/sidebar.js": "/js/sidebar.js",
     "/css/app.css": "/css/app.css",
+    "/css/rolesScreen.css": "/css/rolesScreen.css",
     "/css/ranksScreen.css": "/css/ranksScreen.css",
     "/css/lookupScreens.css": "/css/lookupScreens.css",
     "/css/sidebar.css": "/css/sidebar.css",
