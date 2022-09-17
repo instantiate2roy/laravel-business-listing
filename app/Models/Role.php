@@ -11,6 +11,18 @@ class Role extends Model
     use HasFactory;
     use SoftDeletes;
 
+
     protected $table = 'roles';
     protected $primaryKey = 'id';
+
+
+    public function group()
+    {
+        return $this->belongsTo(Group::class, 'group_code', 'role_group');
+    }
+
+    public function rank()
+    {
+        return $this->belongsTo(Rank::class, 'rank_number', 'role_rank');
+    }
 }

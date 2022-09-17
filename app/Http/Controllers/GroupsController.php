@@ -41,8 +41,6 @@ class GroupsController extends Controller
     public function index()
     {
         //
-
-
         $groups = Group::where([])
             ->orderByDesc('created_at')
             ->paginate($perPage = 5, $columns = ['*'], $pageName = $this->paginationPageName);

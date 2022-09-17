@@ -13,4 +13,9 @@ class Rank extends Model
 
     protected $table = 'ranks';
     protected $primaryKey = 'id';
+
+    public  function role()
+    {
+        return $this->hasMany(Role::class, 'role_rank', 'rank_number');
+    }
 }
