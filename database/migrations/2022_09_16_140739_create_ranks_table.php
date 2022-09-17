@@ -20,6 +20,7 @@ class CreateRanksTable extends Migration
             $table->string('rank_name')->nullable();
             $table->string('rank_status')->nullable();
             $table->softDeletes('deleted_at');
+            $table->unique(['rank_number']);
         });
     }
 

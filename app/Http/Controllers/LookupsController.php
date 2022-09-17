@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LookupRequest;
 use App\Models\Lookup;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Http\Request;
 use stdClass;
 
@@ -71,7 +72,8 @@ class LookupsController extends Controller
     public function store(LookupRequest $request)
     {
         //
-        $lookup = new Lookup();
+        $lookup = Lookup::factory()->make();
+
         $lookup->lk_key = $request->input('lk_key');
         $lookup->lk_scope = $request->input('lk_scope');
         $lookup->lk_short_description = $request->input('lk_short_description');

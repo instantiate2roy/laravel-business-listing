@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RankRequest;
 use App\Models\Lookup;
 use App\Models\Rank;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Http\Request;
 
 class RanksController extends Controller
@@ -43,7 +44,6 @@ class RanksController extends Controller
     public function index()
     {
         //
-
         $ranks = Rank::where([])
             ->orderByDesc('created_at')
             ->paginate($perPage = 5, $columns = ['*'], $pageName = $this->paginationPageName);
