@@ -88,7 +88,9 @@
                                 <br>
                                 {{ $lookups->links() }}
                             @else
-                                !Ooop No Lookup Define Yet.
+                            <h1>Ooops !</h1>
+                            <br>
+                            <p> No Lookups Defined Yet.</p>
                             @endif
                         </div>
                         <div class="card-footer">

@@ -10,7 +10,7 @@
                         <div class="card-header">
                             <div class="addNewGroupsBtn">
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <a href="/groups/create?{{$lastPageName}}={{$groups->currentPage()}}">
+                                    <a href="/groups/create?{{ $lastPageName }}={{ $groups->currentPage() }}">
                                         <button class="btn btn-primary">
                                             <span class="fa fa-plus groupsCreateIcon" aria-hidden="true">
                                             </span>
@@ -51,10 +51,11 @@
                                                     {{ $group->group_name }}</td>
                                                 <td>
                                                     {{ $group->group_status }}</td>
-                                                
+
                                                 <td>
                                                     <div class="d-flex align-items-center justify-content-center">
-                                                        <a href="/groups/{{ $group->id }}/edit?{{$lastPageName}}={{$groups->currentPage()}}"><button
+                                                        <a
+                                                            href="/groups/{{ $group->id }}/edit?{{ $lastPageName }}={{ $groups->currentPage() }}"><button
                                                                 class='fa fa-pencil groupEditIcon'></button>
                                                         </a>
                                                     </div>
@@ -86,7 +87,9 @@
                                 <br>
                                 {{ $groups->links() }}
                             @else
-                                !Ooop No Groups Defined Yet.
+                                <h1>Ooops !</h1>
+                                <br>
+                                <p> No Groups Defined Yet.</p>
                             @endif
                         </div>
                         <div class="card-footer">

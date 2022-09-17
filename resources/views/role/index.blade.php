@@ -93,7 +93,9 @@
                                 <br>
                                 {{ $roles->links() }}
                             @else
-                                !Ooop No Ranks Defined Yet.
+                            <h1>Ooops !</h1>
+                            <br>
+                            <p> No Roles Defined Yet.</p>
                             @endif
                         </div>
                         <div class="card-footer">
