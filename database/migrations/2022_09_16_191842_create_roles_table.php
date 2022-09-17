@@ -22,6 +22,8 @@ class CreateRolesTable extends Migration
             $table->string('role_group')->nullable();
             $table->string('role_status')->nullable();
             $table->string('deleted_at')->nullable();
+            $table->unique(['role_code']);
+            $table->unique(['role_rank','role_group']);
         });
     }
 

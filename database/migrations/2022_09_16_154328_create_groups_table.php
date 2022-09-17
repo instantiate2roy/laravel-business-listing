@@ -20,6 +20,7 @@ class CreateGroupsTable extends Migration
             $table->string('group_name')->nullable();
             $table->string('group_status')->nullable();
             $table->softDeletes('deleted_at');
+            $table->unique(['group_code']);
         });
     }
 
