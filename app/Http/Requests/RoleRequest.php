@@ -40,6 +40,12 @@ class RoleRequest extends FormRequest
         ];
     }
 
+    /**
+     * error messages when validation fails
+     *
+     * @return array
+     * 
+     */
     public function messages()
     {
         return [
