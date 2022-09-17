@@ -17,9 +17,9 @@ class CreateRanksTable extends Migration
             $table->id();
             $table->timestamps();
             $table->integer('rank_number')->nullable();
-            $table->text('rank_name')->nullable();
-            $table->text('rank_status')->nullable();
-            $table->text('deleted_at')->nullable();
+            $table->string('rank_name')->nullable();
+            $table->string('rank_status')->nullable();
+            $table->softDeletes('deleted_at');
         });
     }
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGroupsTable extends Migration
+class CreateUserRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateGroupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('groups', function (Blueprint $table) {
+        Schema::create('user_roles', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('group_code')->nullable();
-            $table->string('group_name')->nullable();
-            $table->string('group_status')->nullable();
+            $table->string('ur_userid')->nullable();
+            $table->string('ur_rolecode')->nullable();
             $table->softDeletes('deleted_at');
+            $table->unique(['ur_userid', 'ur_rolecode']);
         });
     }
 
@@ -30,6 +30,6 @@ class CreateGroupsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('groups');
+        Schema::dropIfExists('user_roles');
     }
 }
