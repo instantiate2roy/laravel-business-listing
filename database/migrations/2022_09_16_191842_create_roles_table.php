@@ -16,12 +16,12 @@ class CreateRolesTable extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->text('role_code')->nullable();
-            $table->text('role_name')->nullable();
+            $table->string('role_code')->nullable();
+            $table->string('role_name')->nullable();
             $table->integer('role_rank')->nullable();
-            $table->text('role_group')->nullable();
-            $table->text('role_status')->nullable();
-            $table->text('deleted_at')->nullable();
+            $table->string('role_group')->nullable();
+            $table->string('role_status')->nullable();
+            $table->string('deleted_at')->nullable();
         });
     }
 
