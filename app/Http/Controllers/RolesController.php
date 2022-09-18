@@ -30,7 +30,7 @@ class RolesController extends Controller
                 ['name' => 'Groups', 'url' => '/groups', 'active' => ''],
                 ['name' => 'Ranks', 'url' => '/ranks', 'active' => ''],
                 ['name' => 'Roles', 'url' => '/roles', 'active' => 'active'],
-                ['name' => 'Users', 'url' => '/userRoles', 'active' => ''],
+                ['name' => 'User Roles', 'url' => '/userRoles', 'active' => ''],
 
             )
         );
@@ -61,9 +61,10 @@ class RolesController extends Controller
     public function index()
     {
         //
-        $roles = Role::where([])
+        $roles = Role::where('role_code', '!=', 'SU_ADMIN')
             ->orderByDesc('created_at')
             ->paginate($perPage = 5, $columns = ['*'], $pageName = $this->paginationPageName);
+
         $confirmDeleteMsg = 'Are you sure you want to delete this Role?';
         $lastPageName = $this->lastPageName;
         $sidebar = $this->sidebar;

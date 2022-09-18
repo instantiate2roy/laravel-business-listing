@@ -52,9 +52,9 @@
                                                 <td>
                                                     {{ $role->role_name }}</td>
                                                 <td>
-                                                    {{ $role->role_rank }}</td>
+                                                    {{ $role->rankname }}</td>
                                                 <td>
-                                                    {{ $role->role_group }}</td>
+                                                    {{ $role->groupname }}</td>
                                                 <td>
                                                     {{ $role->role_status }}</td>
 
