@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRoleRequest extends FormRequest
+class UserRoleEditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class UserRoleRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,15 @@ class UserRoleRequest extends FormRequest
     {
         return [
             //
+            'ur_rolecode' => 'required',
+
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'ur_rolecode.required' => 'Please assign a role to this user !'
         ];
     }
 }

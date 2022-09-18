@@ -18,7 +18,6 @@ class CreateUserRolesTable extends Migration
             $table->timestamps();
             $table->string('ur_userid')->nullable();
             $table->string('ur_rolecode')->nullable();
-            $table->softDeletes('deleted_at');
             $table->unique(['ur_userid', 'ur_rolecode']);
         });
     }
