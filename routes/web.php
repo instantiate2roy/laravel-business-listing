@@ -48,7 +48,7 @@ Route::get('/userManagement', function () {
             ['name' => 'Groups', 'url' => '/groups', 'active' => ''],
             ['name' => 'Ranks', 'url' => '/ranks', 'active' => ''],
             ['name' => 'Roles', 'url' => '/roles', 'active' => ''],
-            ['name' => 'Users', 'url' => '/users', 'active' => ''],
+            ['name' => 'Users', 'url' => '/userRoles', 'active' => ''],
         )
     );
     return view('userManagement.userManagement', compact('sidebar'));
@@ -61,3 +61,5 @@ Route::resource('/ranks', App\Http\Controllers\RanksController::class);
 Route::resource('/groups', App\Http\Controllers\GroupsController::class);
 
 Route::resource('/roles', App\Http\Controllers\RolesController::class);
+
+Route::resource('/userRoles', App\Http\Controllers\UserRolesController::class);

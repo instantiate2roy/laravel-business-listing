@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Rank;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,7 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             LookupSeeder::class,
             RankSeeder::class,
-            GroupSeeder::class
+            GroupSeeder::class,
+            RoleSeeder::class
         ]);
     }
 }

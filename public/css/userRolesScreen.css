@@ -1,0 +1,63 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #bdbcbc;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:hover {
+    background-color: beige;
+}
+
+.userRoleEditIcon {
+    background-color: transparent;
+}
+
+.userRoleEditIcon:hover {
+    background-color: grey;
+    color: white;
+}
+
+.userRoleDeleteIcon {
+    color: red;
+    background-color: transparent;
+}
+
+.userRoleDeleteIcon:hover {
+    background-color: orange;
+    color: white;
+}
+
+.deleteUserRoleXIcon {
+    color: red;
+}
+
+.userRolesCreateIcon {
+    color: white;
+}
+
+.userRolesBackButton {
+    float: left;
+    color: blue;
+}
+
+.createTH {
+    background-color: blue;
+}
+
+.userRolesCardTitle {
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+}
+
+.addNewUserRolesBtn {
+    float: right;
+    color: blue;
+}
