@@ -27,39 +27,41 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/configuration', function () {
-    $sidebar = (object) array(
-        'title' => 'Configuration Setup',
-        'titleLevel2' => 'Menus',
-        'items' => (object) array(
-            ['name' => 'Lookup Value Setup', 'url' => '/lookups', 'active' => ''],
-            ['name' => 'blank', 'url' => '#', 'active' => ''],
-            ['name' => 'blank', 'url' => '#', 'active' => '']
-        )
-    );
-    return view('configuration.configuration', compact('sidebar'));
-})->name('configuration');
 
-Route::get('/userManagement', function () {
-    $sidebar = (object) array(
-        'title' => 'User Management',
-        'titleLevel2' => 'Menus',
-        'items' => (object) array(
-            ['name' => 'Groups', 'url' => '/groups', 'active' => ''],
-            ['name' => 'Ranks', 'url' => '/ranks', 'active' => ''],
-            ['name' => 'Roles', 'url' => '/roles', 'active' => ''],
-            ['name' => 'Users', 'url' => '/userRoles', 'active' => ''],
-        )
-    );
-    return view('userManagement.userManagement', compact('sidebar'));
-})->name('userManagement');
+Route::middleware(['isSecurityAdmin'])->group(function () {
+    Route::get('/configuration', function () {
+        $sidebar = (object) array(
+            'title' => 'Configuration Setup',
+            'titleLevel2' => 'Menus',
+            'items' => (object) array(
+                ['name' => 'Lookup Value Setup', 'url' => '/lookups', 'active' => ''],
+                ['name' => 'blank', 'url' => '#', 'active' => ''],
+                ['name' => 'blank', 'url' => '#', 'active' => '']
+            )
+        );
+        return view('configuration.configuration', compact('sidebar'));
+    })->name('configuration');
 
-Route::resource('/lookups', App\Http\Controllers\LookupsController::class);
+    Route::get('/userManagement', function () {
+        $sidebar = (object) array(
+            'title' => 'Configuration Setup',
+            'titleLevel2' => 'Menus',
+            'items' => (object) array(
+                ['name' => 'Lookup Value Setup', 'url' => '/lookups', 'active' => ''],
+                ['name' => 'blank', 'url' => '#', 'active' => ''],
+                ['name' => 'blank', 'url' => '#', 'active' => '']
+            )
+        );
+        return view('userManagement.userManagement', compact('sidebar'));
+    })->name('userManagement');
 
-Route::resource('/ranks', App\Http\Controllers\RanksController::class);
+    Route::resource('/lookups', App\Http\Controllers\LookupsController::class);
 
-Route::resource('/groups', App\Http\Controllers\GroupsController::class);
+    Route::resource('/ranks', App\Http\Controllers\RanksController::class);
 
-Route::resource('/roles', App\Http\Controllers\RolesController::class);
+    Route::resource('/groups', App\Http\Controllers\GroupsController::class);
 
-Route::resource('/userRoles', App\Http\Controllers\UserRolesController::class);
+    Route::resource('/roles', App\Http\Controllers\RolesController::class);
+
+    Route::resource('/userRoles', App\Http\Controllers\UserRolesController::class);
+});
