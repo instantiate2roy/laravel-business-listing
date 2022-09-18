@@ -25,13 +25,13 @@ class UserRolesController extends Controller
         $this->sidebar = (object) array(
             'title' => 'User Management',
             'titleLevel2' => 'Menus',
-            'items' => (object) array(
+            'items' => [
                 ['name' => 'Groups', 'url' => '/groups', 'active' => ''],
                 ['name' => 'Ranks', 'url' => '/ranks', 'active' => ''],
                 ['name' => 'Roles', 'url' => '/roles', 'active' => ''],
-                ['name' => 'Users', 'url' => '/userRoles', 'active' => 'active'],
+                ['name' => 'User Roles', 'url' => '/userRoles', 'active' => 'active'],
 
-            )
+            ]
         );
 
         $roles = Role::where('role_code', '!=', 'SU_ADMIN')->get();

@@ -16,7 +16,7 @@ class Group extends Model
     /**
      * define zero/one to many relationship between the user group and user role
      */
-    public function role()
+    public function roles()
     {
         return $this->hasMany(Role::class, 'role_group', 'group_code');
     }

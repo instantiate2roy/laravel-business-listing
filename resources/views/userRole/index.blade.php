@@ -45,9 +45,9 @@
 
 
                                                 <td>
-                                                    {{ $userRole->ur_userid }}</td>
+                                                    {{ $userRole->UserName }}</td>
                                                 <td>
-                                                    {{ $userRole->ur_rolecode }}</td>
+                                                    {{ $userRole->RoleName }}</td>
 
                                                 <td>
                                                     <div class="d-flex align-items-center justify-content-center">

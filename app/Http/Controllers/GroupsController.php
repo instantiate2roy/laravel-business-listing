@@ -23,7 +23,7 @@ class GroupsController extends Controller
                 ['name' => 'Groups', 'url' => '/groups', 'active' => 'active'],
                 ['name' => 'Ranks', 'url' => '/ranks', 'active' => ''],
                 ['name' => 'Roles', 'url' => '/roles', 'active' => ''],
-                ['name' => 'Users', 'url' => '/users', 'active' => '']
+                ['name' => 'User Roles', 'url' => '/userRoles', 'active' => '']
             )
         );
 
