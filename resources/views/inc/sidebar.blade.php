@@ -9,17 +9,14 @@
     </a>
     <ul class="list-unstyled ps-0">
         <li class="mb-1">
-            <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
-                data-bs-target="#home-collapse" aria-expanded="true">
-                <strong> {{ $sidebar->titleLevel2 }}</strong>
-                <hr>
-            </button>
-            <div class="collapse show" id="home-collapse">
+
+            <div class="show" id="home-collapse">
 
                 <ul class="btn-toggle-nav list-group fw-normal pb-1 small">
                     @foreach ($sidebar->items as $item)
                         <li>
-                            <a href="{{ $item['url'] }}" class="list-group-item {{$item['active']}}">{{ $item['name'] }}</a>
+                            <a href="{{ $item->nav_url }}"
+                                class="list-group-item {{ $item->active }}">{{ $item->nav_name }}</a>
                         </li>
                     @endforeach
                 </ul>

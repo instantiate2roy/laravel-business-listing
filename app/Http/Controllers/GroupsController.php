@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\CustomClasses\Lookups;
+use App\CustomClasses\NavMenu;
 use App\Http\Requests\GroupRequest;
 use App\Models\Group;
 use App\Models\Lookup;
@@ -13,25 +15,13 @@ class GroupsController extends Controller
     protected $lastPageName = 'groupsLastPage';
     protected $sidebar;
     protected $groupStatusLookups = [];
-    function __construct()
+    function __construct(NavMenu $navMenu, Lookups $lookups)
     {
         $this->middleware('auth');
-        $this->sidebar = (object) array(
-            'title' => 'User Management',
-            'titleLevel2' => 'Menus',
-            'items' => (object) array(
-                ['name' => 'Groups', 'url' => '/groups', 'active' => 'active'],
-                ['name' => 'Ranks', 'url' => '/ranks', 'active' => ''],
-                ['name' => 'Roles', 'url' => '/roles', 'active' => ''],
-                ['name' => 'User Roles', 'url' => '/userRoles', 'active' => '']
-            )
-        );
 
-        $lookups = Lookup::where('lk_scope', 'GROUPS')->get();
+        $this->sidebar = $navMenu::get('USER_CONFIG_LEFT_SIDE_BAR', 'ACTV', 'GRP_CONFIG');
 
-        foreach ($lookups as $lookup) {
-            $this->groupStatusLookups[$lookup->lk_key] = $lookup->lk_short_description;
-        }
+        $this->rankStatusLookups = $lookups::getSimple('GROUPS_STATUS');
     }
     /**
      * Display a listing of the resource.

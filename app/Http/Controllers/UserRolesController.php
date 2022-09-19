@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CustomClasses\NavMenu;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserRoleCreateRequest;
 use App\Http\Requests\UserRoleEditRequest;
@@ -18,24 +19,14 @@ class UserRolesController extends Controller
     protected $userRoleLookups = [];
     protected $usersLookup = [];
 
-    function __construct()
+    function __construct(NavMenu $navMenu)
     {
 
         $this->middleware('auth');
-        $this->sidebar = (object) array(
-            'title' => 'User Management',
-            'titleLevel2' => 'Menus',
-            'items' => [
-                ['name' => 'Groups', 'url' => '/groups', 'active' => ''],
-                ['name' => 'Ranks', 'url' => '/ranks', 'active' => ''],
-                ['name' => 'Roles', 'url' => '/roles', 'active' => ''],
-                ['name' => 'User Roles', 'url' => '/userRoles', 'active' => 'active'],
 
-            ]
-        );
+        $this->sidebar = $navMenu::get('USER_CONFIG_LEFT_SIDE_BAR', 'ACTV', 'USRROLE_CONFIG');
 
         $roles = Role::where('role_code', '!=', 'SU_ADMIN')->get();
-
         foreach ($roles as $role) {
             $this->userRoleLookups[$role->role_code] = $role->role_name;
         }
@@ -54,7 +45,7 @@ class UserRolesController extends Controller
     public function index()
     {
         //
-        $userRoles = UserRole::where([])
+        $userRoles = UserRole::where('ur_rolecode', '!=', 'SU_ADMIN')
             ->orderByDesc('created_at')
             ->paginate($perPage = 5, $columns = ['*'], $pageName = $this->paginationPageName);
         $confirmDeleteMsg = 'Are you sure you want to delete this user role?';

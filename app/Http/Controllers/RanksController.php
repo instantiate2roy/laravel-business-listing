@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\CustomClasses\Lookups;
+use App\CustomClasses\NavMenu;
 use App\Http\Requests\RankRequest;
 use App\Models\Lookup;
 use App\Models\Rank;
@@ -14,27 +16,13 @@ class RanksController extends Controller
     protected $lastPageName = 'ranksLastPage';
     protected $sidebar;
     protected $rankStatusLookups = [];
-    function __construct()
+    function __construct(NavMenu $navMenu, Lookups $lookups)
     {
         $this->middleware('auth');
 
-        $this->sidebar = (object) array(
-            'title' => 'User Management',
-            'titleLevel2' => 'Menus',
-            'items' => (object) array(
-                ['name' => 'Groups', 'url' => '/groups', 'active' => ''],
-                ['name' => 'Ranks', 'url' => '/ranks', 'active' => 'active'],
-                ['name' => 'Roles', 'url' => '/roles', 'active' => ''],
-                ['name' => 'User Roles', 'url' => '/userRoles', 'active' => ''],
+        $this->sidebar = $navMenu::get('USER_CONFIG_LEFT_SIDE_BAR', 'ACTV', 'RNK_CONFIG');
 
-            )
-        );
-
-        $lookups = Lookup::where('lk_scope', 'RANKS')->get();
-
-        foreach ($lookups as $lookup) {
-            $this->rankStatusLookups[$lookup->lk_key] = $lookup->lk_short_description;
-        }
+        $this->rankStatusLookups = $lookups::getSimple('RANKS_STATUS');
     }
     /**
      * Display a listing of the resource.

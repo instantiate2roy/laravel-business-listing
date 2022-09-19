@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CustomClasses\NavMenu;
 use App\Http\Requests\LookupRequest;
 use App\Models\Lookup;
 use Illuminate\Database\Eloquent\Factories\Sequence;
@@ -14,19 +15,10 @@ class LookupsController extends Controller
     protected $lastPageName = 'lookupsLastPage';
     protected $sidebar;
 
-    function __construct()
+    function __construct(NavMenu $navMenu)
     {
         $this->middleware('auth');
-
-        $this->sidebar = (object) array(
-            'title' => 'Configuration Setup',
-            'titleLevel2' => 'Menus',
-            'items' => (object) array(
-                ['name' => 'Lookup Value Setup', 'url' => '/lookups', 'active' => 'active'],
-                ['name' => 'blank', 'url' => '#', 'active' => ''],
-                ['name' => 'blank', 'url' => '#', 'active' => '']
-            )
-        );
+        $this->sidebar = NavMenu::get('SYS_CONFIG_LEFT_SIDE_BAR', 'ACTV', 'LK_UP');
     }
 
     /**
