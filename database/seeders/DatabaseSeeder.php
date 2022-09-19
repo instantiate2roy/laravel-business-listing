@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\NavigationMenu;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,7 +19,11 @@ class DatabaseSeeder extends Seeder
             LookupSeeder::class,
             RankSeeder::class,
             GroupSeeder::class,
-            RoleSeeder::class
+            RoleSeeder::class,
+            UserRoleSeeder::class,
+            NavigationMenuSeeder::class,
+            NavigationItemSeeder::class
+
         ]);
     }
 }

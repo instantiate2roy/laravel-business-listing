@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\CustomClasses\Lookups;
+use App\CustomClasses\NavMenu;
 use App\Http\Requests\RoleRequest;
 use Illuminate\Http\Request;
 use App\Models\Lookup;
@@ -19,39 +21,23 @@ class RolesController extends Controller
     protected $roleGroupLookups = [];
     protected $roleRankLookups = [];
 
-    function  __construct()
+    function  __construct(NavMenu $navMenu, Lookups $lookups)
     {
         $this->middleware('auth');
 
-        $this->sidebar = (object) array(
-            'title' => 'User Management',
-            'titleLevel2' => 'Menus',
-            'items' => (object) array(
-                ['name' => 'Groups', 'url' => '/groups', 'active' => ''],
-                ['name' => 'Ranks', 'url' => '/ranks', 'active' => ''],
-                ['name' => 'Roles', 'url' => '/roles', 'active' => 'active'],
-                ['name' => 'User Roles', 'url' => '/userRoles', 'active' => ''],
-
-            )
-        );
+        $this->sidebar = $navMenu::get('USER_CONFIG_LEFT_SIDE_BAR', 'ACTV', 'ROLE_CONFIG');
 
         $ranks = Rank::where('rank_status', 'ACTV')->get();
-
         foreach ($ranks as $rank) {
             $this->roleRankLookups[$rank->rank_number] = $rank->rank_name;
         }
 
         $groups = Group::where('group_status', 'ACTV')->get();
-
         foreach ($groups as $group) {
             $this->roleGroupLookups[$group->group_code] = $group->group_name;
         }
 
-        $statuses = Lookup::where('lk_scope', 'RANKS')->get();
-
-        foreach ($statuses as $status) {
-            $this->roleStatusLookups[$status->lk_key] = $status->lk_short_description;
-        }
+        $this->roleStatusLookups = $lookups::getSimple('ROLES_STATUS');
     }
     /**
      * Display a listing of the resource.

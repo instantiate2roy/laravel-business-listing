@@ -6,6 +6,8 @@
     "/css/ranksScreen.css": "/css/ranksScreen.css",
     "/css/lookupScreens.css": "/css/lookupScreens.css",
     "/css/sidebar.css": "/css/sidebar.css",
+    "/css/navigationItemsScreen.css": "/css/navigationItemsScreen.css",
+    "/css/navigationMenusScreen.css": "/css/navigationMenusScreen.css",
     "/css/userRolesScreen.css": "/css/userRolesScreen.css",
     "/css/groupsScreen.css": "/css/groupsScreen.css"
 }

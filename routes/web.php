@@ -1,5 +1,7 @@
 <?php
 
+use App\CustomClasses\NavMenu;
+use App\Models\NavigationMenu;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,28 +32,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::middleware(['isSecurityAdmin'])->group(function () {
     Route::get('/configuration', function () {
-        $sidebar = (object) array(
-            'title' => 'Configuration Setup',
-            'titleLevel2' => 'Menus',
-            'items' => (object) array(
-                ['name' => 'Lookup Value Setup', 'url' => '/lookups', 'active' => ''],
-                ['name' => 'blank', 'url' => '#', 'active' => ''],
-                ['name' => 'blank', 'url' => '#', 'active' => '']
-            )
-        );
+        $sidebar = NavMenu::get('SYS_CONFIG_LEFT_SIDE_BAR', 'ACTV');
         return view('configuration.configuration', compact('sidebar'));
     })->name('configuration');
 
     Route::get('/userManagement', function () {
-        $sidebar = (object) array(
-            'title' => 'Configuration Setup',
-            'titleLevel2' => 'Menus',
-            'items' => (object) array(
-                ['name' => 'Lookup Value Setup', 'url' => '/lookups', 'active' => ''],
-                ['name' => 'blank', 'url' => '#', 'active' => ''],
-                ['name' => 'blank', 'url' => '#', 'active' => '']
-            )
-        );
+        $sidebar = NavMenu::get('USER_CONFIG_LEFT_SIDE_BAR', 'ACTV');
         return view('userManagement.userManagement', compact('sidebar'));
     })->name('userManagement');
 
@@ -64,4 +50,8 @@ Route::middleware(['isSecurityAdmin'])->group(function () {
     Route::resource('/roles', App\Http\Controllers\RolesController::class);
 
     Route::resource('/userRoles', App\Http\Controllers\UserRolesController::class);
+
+    Route::resource('/navigationMenus', App\Http\Controllers\NavigationMenusController::class);
+
+    Route::resource('/navigationItems', App\Http\Controllers\NavigationItemsController::class);
 });

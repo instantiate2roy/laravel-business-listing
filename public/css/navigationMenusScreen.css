@@ -1,0 +1,63 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #bdbcbc;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:hover {
+    background-color: beige;
+}
+
+.navigationMenuEditIcon {
+    background-color: transparent;
+}
+
+.navigationMenuEditIcon:hover {
+    background-color: grey;
+    color: white;
+}
+
+.navigationMenuDeleteIcon {
+    color: red;
+    background-color: transparent;
+}
+
+.navigationMenuDeleteIcon:hover {
+    background-color: orange;
+    color: white;
+}
+
+.deleteNavigationMenuXIcon {
+    color: red;
+}
+
+.navigationMenusCreateIcon {
+    color: white;
+}
+
+.navigationMenusBackButton {
+    float: left;
+    color: blue;
+}
+
+.createTH {
+    background-color: blue;
+}
+
+.navigationMenusCardTitle {
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+}
+
+.addNewNavigationMenusBtn {
+    float: right;
+    color: blue;
+}
