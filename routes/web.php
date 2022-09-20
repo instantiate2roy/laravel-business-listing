@@ -21,11 +21,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    $navBar  = new stdClass;
-    $navBar->right = NavMenu::get('TOP_RIGHT_NAV_BAR', 'ACTV');
-    if (UserChecking::hasRole(['SU_ADMIN', 'SU_ADMIN'])) {
-        $navBar->left = NavMenu::get('TOP_LEFT_NAV_BAR', 'ACTV');
-    }
+    $navBar  = navBar();
     return view('dashboard', compact('navBar'));
 })->middleware(['auth'])->name('dashboard');
 
@@ -35,26 +31,27 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+function navBar()
+{
+    $navBar  = new stdClass;
+    $navBar->left = NavMenu::get('TOP_LEFT_NAV_BAR', 'ACTV');
+    if (UserChecking::hasRole(['SU_ADMIN', 'SU_ADMIN'])) {
+        $navBar->right = NavMenu::get('TOP_RIGHT_NAV_BAR', 'ACTV');
+    }
+    return $navBar;
+}
 
 Route::middleware(['isSecurityAdmin'])->group(function () {
     Route::get('/configuration', function () {
         $sidebar = NavMenu::get('SYS_CONFIG_LEFT_SIDE_BAR', 'ACTV');
-        $navBar  = new stdClass;
-        $navBar->right = NavMenu::get('TOP_RIGHT_NAV_BAR', 'ACTV');
-        if (UserChecking::hasRole(['SU_ADMIN', 'SU_ADMIN'])) {
-            $navBar->left = NavMenu::get('TOP_LEFT_NAV_BAR', 'ACTV');
-        }
+        $navBar  = navBar();
 
         return view('configuration.configuration', compact('sidebar', 'navBar'));
     })->name('configuration');
 
     Route::get('/userManagement', function () {
         $sidebar = NavMenu::get('USER_CONFIG_LEFT_SIDE_BAR', 'ACTV');
-        $navBar  = new stdClass;
-        $navBar->right = NavMenu::get('TOP_RIGHT_NAV_BAR', 'ACTV');
-        if (UserChecking::hasRole(['SU_ADMIN', 'SU_ADMIN'])) {
-            $navBar->left = NavMenu::get('TOP_LEFT_NAV_BAR', 'ACTV');
-        }
+        $navBar  = navBar();
 
         return view('userManagement.userManagement', compact('sidebar', 'navBar'));
     })->name('userManagement');
