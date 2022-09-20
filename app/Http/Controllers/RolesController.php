@@ -10,13 +10,14 @@ use App\Models\Lookup;
 use App\Models\Role;
 use App\Models\Rank;
 use App\Models\Group;
+use stdClass;
 
 class RolesController extends Controller
 {
 
     protected $paginationPageName = 'rolesPage';
     protected $lastPageName = 'rolesLastPage';
-    protected $sidebar;
+    protected $sidebar, $navBar;
     protected $roleStatusLookups = [];
     protected $roleGroupLookups = [];
     protected $roleRankLookups = [];
@@ -26,6 +27,9 @@ class RolesController extends Controller
         $this->middleware('auth');
 
         $this->sidebar = $navMenu::get('USER_CONFIG_LEFT_SIDE_BAR', 'ACTV', 'ROLE_CONFIG');
+        $this->navBar  = new stdClass;
+        $this->navBar->right = $navMenu::get('TOP_RIGHT_NAV_BAR', 'ACTV');
+        $this->navBar->left = $navMenu::get('TOP_LEFT_NAV_BAR', 'ACTV');
 
         $ranks = Rank::where('rank_status', 'ACTV')->get();
         foreach ($ranks as $rank) {
@@ -54,8 +58,14 @@ class RolesController extends Controller
         $confirmDeleteMsg = 'Are you sure you want to delete this Role?';
         $lastPageName = $this->lastPageName;
         $sidebar = $this->sidebar;
-
-        return view('role.index', compact('roles', 'lastPageName', 'confirmDeleteMsg', 'sidebar'));
+        $navBar = $this->navBar;
+        return view('role.index', compact(
+            'roles',
+            'lastPageName',
+            'confirmDeleteMsg',
+            'sidebar',
+            'navBar'
+        ));
     }
 
     /**
@@ -74,7 +84,7 @@ class RolesController extends Controller
         $lastPage = $request->query($this->lastPageName);
         $paginationPageName = $this->paginationPageName;
         $sidebar = $this->sidebar;
-
+        $navBar = $this->navBar;
         return view(
             'role.create',
             compact(
@@ -84,7 +94,8 @@ class RolesController extends Controller
                 'sidebar',
                 'roleStatusLookups',
                 'roleRankLookups',
-                'roleGroupLookups'
+                'roleGroupLookups',
+                'navBar'
             )
         );
     }
@@ -136,7 +147,7 @@ class RolesController extends Controller
         $lastPage = $request->query($this->lastPageName);
         $paginationPageName = $this->paginationPageName;
         $sidebar = $this->sidebar;
-
+        $navBar = $this->navBar;
         $roleStatusLookups = $this->roleStatusLookups;
         $roleRankLookups = $this->roleRankLookups;
         $roleGroupLookups = $this->roleGroupLookups;
@@ -150,7 +161,8 @@ class RolesController extends Controller
                 'sidebar',
                 'roleStatusLookups',
                 'roleRankLookups',
-                'roleGroupLookups'
+                'roleGroupLookups',
+                'navBar'
             )
         );
     }

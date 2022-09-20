@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\CustomClasses\UserChecking;
 use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
@@ -22,14 +23,8 @@ class IsSecurityAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        $secAdmin = false;
-        
-        foreach (Auth::user()->userRoles as $userRole) {
-            if ($userRole->ur_rolecode == 'SEC_ADMIN' || $userRole->ur_rolecode == 'SU_ADMIN') {
-                $secAdmin = true;
-                break;
-            }
-        }
+
+        $secAdmin = UserChecking::hasRole(['SU_ADMIN', 'SU_ADMIN']);
 
         if (!$secAdmin) {
             return abort(403, 'Unauthorized Access.');

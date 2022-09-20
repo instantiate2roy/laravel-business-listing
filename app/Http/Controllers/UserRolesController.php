@@ -10,12 +10,13 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\UserRole;
 use Illuminate\Http\Request;
+use stdClass;
 
 class UserRolesController extends Controller
 {
     protected $paginationPageName = 'userRolesPage';
     protected $lastPageName = 'userRolesLastPage';
-    protected $sidebar;
+    protected $sidebar, $navBar;
     protected $userRoleLookups = [];
     protected $usersLookup = [];
 
@@ -25,6 +26,9 @@ class UserRolesController extends Controller
         $this->middleware('auth');
 
         $this->sidebar = $navMenu::get('USER_CONFIG_LEFT_SIDE_BAR', 'ACTV', 'USRROLE_CONFIG');
+        $this->navBar  = new stdClass;
+        $this->navBar->right = $navMenu::get('TOP_RIGHT_NAV_BAR', 'ACTV');
+        $this->navBar->left = $navMenu::get('TOP_LEFT_NAV_BAR', 'ACTV');
 
         $roles = Role::where('role_code', '!=', 'SU_ADMIN')->get();
         foreach ($roles as $role) {
@@ -51,8 +55,14 @@ class UserRolesController extends Controller
         $confirmDeleteMsg = 'Are you sure you want to delete this user role?';
         $lastPageName = $this->lastPageName;
         $sidebar = $this->sidebar;
-
-        return view('userRole.index', compact('userRoles', 'lastPageName', 'confirmDeleteMsg', 'sidebar'));
+        $navBar = $this->navBar;
+        return view('userRole.index', compact(
+            'userRoles',
+            'lastPageName',
+            'confirmDeleteMsg',
+            'sidebar',
+            'navBar'
+        ));
     }
 
     /**
@@ -70,7 +80,7 @@ class UserRolesController extends Controller
         $lastPage = $request->query($this->lastPageName);
         $paginationPageName = $this->paginationPageName;
         $sidebar = $this->sidebar;
-
+        $navBar = $this->navBar;
         return view(
             'userRole.create',
             compact(
@@ -79,7 +89,8 @@ class UserRolesController extends Controller
                 'paginationPageName',
                 'sidebar',
                 'userRoleLookups',
-                'usersLookup'
+                'usersLookup',
+                'navBar'
             )
         );
     }
@@ -131,7 +142,7 @@ class UserRolesController extends Controller
         $lastPage = $request->query($this->lastPageName);
         $paginationPageName = $this->paginationPageName;
         $sidebar = $this->sidebar;
-
+        $navBar = $this->navBar;
         $userRoleLookups = $this->userRoleLookups;
         $usersLookup = $this->usersLookup;
 
@@ -144,7 +155,8 @@ class UserRolesController extends Controller
                 'paginationPageName',
                 'sidebar',
                 'userRoleLookups',
-                'usersLookup'
+                'usersLookup',
+                'navBar'
             )
         );
     }

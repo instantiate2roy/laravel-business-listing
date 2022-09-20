@@ -2,6 +2,7 @@
 
 namespace App\CustomClasses;
 
+use App\Models\NavigationItem;
 use App\Models\NavigationMenu;
 use stdClass;
 
@@ -26,6 +27,7 @@ class NavMenu
             $sidebar->title = $sidebarMenu->menu_name;
             $sidebar->items = [];
             foreach ($sidebarMenu->navigationItems as $item) {
+                $item->childElements = self::children($item);
                 if ($item->nav_code == $active) {
                     $item->active = 'active';
                 }
@@ -33,6 +35,11 @@ class NavMenu
             }
         }
         return $sidebar;
+    }
+
+    private function children($item)
+    {
+        return NavigationItem::where('nav_menu', $item->nav_code)->get();
     }
 
     /**

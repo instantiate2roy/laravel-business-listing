@@ -4,22 +4,27 @@ namespace App\Http\Controllers;
 
 use App\CustomClasses\Lookups;
 use App\CustomClasses\NavMenu;
+use App\CustomClasses\UserChecking;
 use App\Http\Requests\GroupRequest;
 use App\Models\Group;
 use App\Models\Lookup;
 use Illuminate\Http\Request;
+use stdClass;
 
 class GroupsController extends Controller
 {
     protected $paginationPageName = 'groupsPage';
     protected $lastPageName = 'groupsLastPage';
-    protected $sidebar;
+    protected $sidebar, $navBar;
     protected $groupStatusLookups = [];
     function __construct(NavMenu $navMenu, Lookups $lookups)
     {
         $this->middleware('auth');
 
         $this->sidebar = $navMenu::get('USER_CONFIG_LEFT_SIDE_BAR', 'ACTV', 'GRP_CONFIG');
+        $this->navBar  = new stdClass;
+        $this->navBar->right = $navMenu::get('TOP_RIGHT_NAV_BAR', 'ACTV');
+        $this->navBar->left = $navMenu::get('TOP_LEFT_NAV_BAR', 'ACTV');
 
         $this->rankStatusLookups = $lookups::getSimple('GROUPS_STATUS');
     }
@@ -31,14 +36,15 @@ class GroupsController extends Controller
     public function index()
     {
         //
+        
         $groups = Group::where([])
             ->orderByDesc('created_at')
             ->paginate($perPage = 5, $columns = ['*'], $pageName = $this->paginationPageName);
         $confirmDeleteMsg = 'Are you sure you want to delete this Group?';
         $lastPageName = $this->lastPageName;
         $sidebar = $this->sidebar;
-
-        return view('group.index', compact('groups', 'lastPageName', 'confirmDeleteMsg', 'sidebar'));
+        $navBar = $this->navBar;
+        return view('group.index', compact('groups', 'lastPageName', 'confirmDeleteMsg', 'sidebar', 'navBar'));
     }
 
     /**
@@ -55,7 +61,7 @@ class GroupsController extends Controller
         $lastPage = $request->query($this->lastPageName);
         $paginationPageName = $this->paginationPageName;
         $sidebar = $this->sidebar;
-
+        $navBar = $this->navBar;
         return view(
             'group.create',
             compact(
@@ -63,7 +69,8 @@ class GroupsController extends Controller
                 'lastPage',
                 'paginationPageName',
                 'sidebar',
-                'groupStatusLookups'
+                'groupStatusLookups',
+                'navBar'
             )
         );
     }
@@ -114,7 +121,7 @@ class GroupsController extends Controller
         $lastPage = $request->query($this->lastPageName);
         $paginationPageName = $this->paginationPageName;
         $sidebar = $this->sidebar;
-
+        $navBar = $this->navBar;
         $groupStatusLookups = $this->groupStatusLookups;
 
         return view(
@@ -125,7 +132,8 @@ class GroupsController extends Controller
                 'lastPage',
                 'paginationPageName',
                 'sidebar',
-                'groupStatusLookups'
+                'groupStatusLookups',
+                'navBar'
             )
         );
     }

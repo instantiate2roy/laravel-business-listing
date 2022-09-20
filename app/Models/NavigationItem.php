@@ -18,6 +18,11 @@ class NavigationItem extends Model
         return   $this->belongsTo(NavigationMenu::class, 'menu_code', 'nav_menu');
     }
 
+    public function children()
+    {
+        return $this->hasMany(NavigationItem::class, 'nav_menu', 'nav_code');
+    }
+
     public function getNavigationMenuAttribute()
     {
         $navigationMenu = NavigationMenu::where('menu_code', $this->nav_menu)->first();

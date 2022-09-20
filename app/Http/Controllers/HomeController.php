@@ -2,18 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\CustomClasses\NavMenu;
 use Illuminate\Http\Request;
+use stdClass;
 
 class HomeController extends Controller
 {
+    protected  $navBar;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(NavMenu $navMenu)
     {
         $this->middleware('auth');
+        $this->navBar  = new stdClass;
+        $this->navBar->right = $navMenu::get('TOP_RIGHT_NAV_BAR', 'ACTV');
+        $this->navBar->left = $navMenu::get('TOP_LEFT_NAV_BAR', 'ACTV');
     }
 
     /**
@@ -23,6 +29,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $navBar = $this->navBar;
+        return view('home', compact('navBar'));
     }
 }
