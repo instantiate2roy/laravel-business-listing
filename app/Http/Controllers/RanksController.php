@@ -9,19 +9,22 @@ use App\Models\Lookup;
 use App\Models\Rank;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Http\Request;
+use stdClass;
 
 class RanksController extends Controller
 {
     protected $paginationPageName = 'ranksPage';
     protected $lastPageName = 'ranksLastPage';
-    protected $sidebar;
+    protected $sidebar, $navBar;
     protected $rankStatusLookups = [];
     function __construct(NavMenu $navMenu, Lookups $lookups)
     {
         $this->middleware('auth');
 
         $this->sidebar = $navMenu::get('USER_CONFIG_LEFT_SIDE_BAR', 'ACTV', 'RNK_CONFIG');
-
+        $this->navBar  = new stdClass;
+        $this->navBar->right = $navMenu::get('TOP_RIGHT_NAV_BAR', 'ACTV');
+        $this->navBar->left = $navMenu::get('TOP_LEFT_NAV_BAR', 'ACTV');
         $this->rankStatusLookups = $lookups::getSimple('RANKS_STATUS');
     }
     /**
@@ -38,8 +41,8 @@ class RanksController extends Controller
         $confirmDeleteMsg = 'Are you sure you want to delete this Rank?';
         $lastPageName = $this->lastPageName;
         $sidebar = $this->sidebar;
-
-        return view('rank.index', compact('ranks', 'lastPageName', 'confirmDeleteMsg', 'sidebar'));
+        $navBar = $this->navBar;
+        return view('rank.index', compact('ranks', 'lastPageName', 'confirmDeleteMsg', 'sidebar', 'navBar'));
     }
 
     /**
@@ -57,7 +60,7 @@ class RanksController extends Controller
         $lastPage = $request->query($this->lastPageName);
         $paginationPageName = $this->paginationPageName;
         $sidebar = $this->sidebar;
-
+        $navBar = $this->navBar;
         return view(
             'rank.create',
             compact(
@@ -65,7 +68,8 @@ class RanksController extends Controller
                 'lastPage',
                 'paginationPageName',
                 'sidebar',
-                'rankStatusLookups'
+                'rankStatusLookups',
+                'navBar'
             )
         );
     }
@@ -116,7 +120,7 @@ class RanksController extends Controller
         $lastPage = $request->query($this->lastPageName);
         $paginationPageName = $this->paginationPageName;
         $sidebar = $this->sidebar;
-
+        $navBar = $this->navBar;
         $rankStatusLookups = $this->rankStatusLookups;
 
         return view(
@@ -127,7 +131,8 @@ class RanksController extends Controller
                 'lastPage',
                 'paginationPageName',
                 'sidebar',
-                'rankStatusLookups'
+                'rankStatusLookups',
+                'navBar'
             )
         );
     }

@@ -16,7 +16,7 @@ class NavigationItemsController extends Controller
 {
     protected $paginationPageName = 'navigationItemsPage';
     protected $lastPageName = 'navigationItemsLastPage';
-    protected $sidebar;
+    protected $sidebar, $navBar;
     protected $navigationItemStatusLookups = [];
     protected $navigationItemMenuLookups = [];
 
@@ -24,6 +24,9 @@ class NavigationItemsController extends Controller
     {
         $this->middleware('auth');
         $this->sidebar = $navMenu::get('NAV_CONFIG', 'ACTV', 'NAV_ITEM_CONFIG');
+        $this->navBar  = new stdClass;
+        $this->navBar->right = $navMenu::get('TOP_RIGHT_NAV_BAR', 'ACTV');
+        $this->navBar->left = $navMenu::get('TOP_LEFT_NAV_BAR', 'ACTV');
         $this->navigationItemMenuLookups = $navMenu::menusAslookups();
         $this->navigationItemStatusLookups = $lookUps::getSimple('NAV_MENUS_ITEMS');
     }
@@ -42,8 +45,8 @@ class NavigationItemsController extends Controller
         $confirmDeleteMsg = 'Are you sure you want to delete this Navigation Item?';
         $lastPageName = $this->lastPageName;
         $sidebar = $this->sidebar;
-
-        return view('navigationItem.index', compact('navigationItems', 'lastPageName', 'confirmDeleteMsg', 'sidebar'));
+        $navBar = $this->navBar;
+        return view('navigationItem.index', compact('navigationItems', 'lastPageName', 'confirmDeleteMsg', 'sidebar', 'navBar'));
     }
 
     /**
@@ -60,7 +63,7 @@ class NavigationItemsController extends Controller
         $lastPage = $request->query($this->lastPageName);
         $paginationPageName = $this->paginationPageName;
         $sidebar = $this->sidebar;
-
+        $navBar = $this->navBar;
         return view(
             'navigationItem.create',
             compact(
@@ -69,7 +72,8 @@ class NavigationItemsController extends Controller
                 'paginationPageName',
                 'sidebar',
                 'navigationItemStatusLookups',
-                'navigationItemMenuLookups'
+                'navigationItemMenuLookups',
+                'navBar'
             )
         );
     }
@@ -124,7 +128,7 @@ class NavigationItemsController extends Controller
         $lastPage = $request->query($this->lastPageName);
         $paginationPageName = $this->paginationPageName;
         $sidebar = $this->sidebar;
-
+        $navBar = $this->navBar;
         $navigationItemStatusLookups = $this->navigationItemStatusLookups;
         $navigationItemMenuLookups = $this->navigationItemMenuLookups;
         return view(
@@ -136,7 +140,8 @@ class NavigationItemsController extends Controller
                 'paginationPageName',
                 'sidebar',
                 'navigationItemStatusLookups',
-                'navigationItemMenuLookups'
+                'navigationItemMenuLookups',
+                'navBar'
             )
         );
     }

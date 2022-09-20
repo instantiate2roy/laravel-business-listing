@@ -36,11 +36,32 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item"><a class="nav-link" href="">Businesses</a></li>
-                        <li class="nav-item"><a class="nav-link" href="">Listings</a></li>
-                        <li class="nav-item"><a class="nav-link" href="">Jobs</a></li>
-                    </ul>
+                    @if (isset($navBar) && isset($navBar->left->items))
+                        <ul class="navbar-nav me-auto">
+                            @foreach ($navBar->left->items as $leftNavitem)
+                                @if (isset($leftNavitem->children) && count($leftNavitem->children) > 0)
+                                    <li class="nav-item dropdown">
+                                        <a id="navbarDropdown" class="nav-link dropdown-toggle"
+                                            href="{{ $leftNavitem->nav_url }}" role="button" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false" v-pre>
+                                            <span
+                                                class="{{ $leftNavitem->nav_fa_fa_icon }}">&nbsp;{{ $leftNavitem->nav_name }}</i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                            @foreach ($leftNavitem->children as $childitem)
+                                                <a class="dropdown-item" href="{{ $childitem->nav_url }}"><span
+                                                        class="{{ $childitem->nav_fa_fa_icon }}">&nbsp;{{ $childitem->nav_name }}</span></a>
+                                            @endforeach
+                                        </div>
+                                    </li>
+                                @else
+                                    <li class="nav-item"><a class="nav-link" href="{{ $leftNavitem->nav_url }}"><span
+                                                class="{{ $leftNavitem->nav_fa_fa_icon }}">&nbsp;{{ $leftNavitem->nav_name }}</span></a>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    @endif
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
@@ -58,17 +79,32 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <i class="fa fa-gear">System Configs</i>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/configuration">Configuration Setup</a>
-                                    <a class="dropdown-item" href="/userManagement">user Management</a>
-                                </div>
-                            </li>
+                            @if (isset($navBar) && isset($navBar->right->items))
+                                @foreach ($navBar->right->items as $rightNavitem)
+                                    @if (isset($rightNavitem->children))
+                                        <li class="nav-item dropdown">
+                                            <a id="navbarDropdown" class="nav-link dropdown-toggle"
+                                                href="{{ $rightNavitem->nav_url }}" role="button"
+                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                                <span
+                                                    class="{{ $rightNavitem->nav_fa_fa_icon }}">&nbsp;{{ $rightNavitem->nav_name }}</i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                                @foreach ($rightNavitem->children as $childitem)
+                                                    <a class="dropdown-item" href="{{ $childitem->nav_url }}"><span
+                                                            class="{{ $childitem->nav_fa_fa_icon }}">&nbsp;{{ $childitem->nav_name }}</span></a>
+                                                @endforeach
+                                            </div>
+                                        </li>
+                                    @else
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{{ $rightNavitem->nav_url }}">
+                                                <span
+                                                    class="{{ $rightNavitem->nav_fa_fa_icon }}">&nbsp;{{ $rightNavitem->nav_name }}</span></a>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

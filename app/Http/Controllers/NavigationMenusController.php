@@ -8,13 +8,13 @@ use App\Http\Requests\NavigationAddMenuRequest;
 use App\Http\Requests\NavigationEditMenuRequest;
 use App\Models\NavigationMenu;
 use Illuminate\Http\Request;
-
+use stdClass;
 
 class NavigationMenusController extends Controller
 {
     protected $paginationPageName = 'navigationMenusPage';
     protected $lastPageName = 'navigationMenusLastPage';
-    protected $sidebar;
+    protected $sidebar, $navBar;
     protected $navigationMenuStatusLookups = [];
 
     function __construct(NavMenu $navMenu, Lookups $lookUps)
@@ -22,8 +22,11 @@ class NavigationMenusController extends Controller
         $this->middleware('auth');
 
         $this->sidebar = $navMenu::get('NAV_CONFIG', 'ACTV', 'NAV_MENU_CONFIG');
-        $this->navigationMenuStatusLookups = $lookUps::getSimple('NAV_MENUS');
+        $this->navBar  = new stdClass;
+        $this->navBar->right = $navMenu::get('TOP_RIGHT_NAV_BAR', 'ACTV');
+        $this->navBar->left = $navMenu::get('TOP_LEFT_NAV_BAR', 'ACTV');
 
+        $this->navigationMenuStatusLookups = $lookUps::getSimple('NAV_MENUS');
     }
     /**
      * Display a listing of the resource.
@@ -39,8 +42,8 @@ class NavigationMenusController extends Controller
         $confirmDeleteMsg = 'Are you sure you want to delete this Navigation Menu?';
         $lastPageName = $this->lastPageName;
         $sidebar = $this->sidebar;
-
-        return view('navigationMenu.index', compact('navigationMenus', 'lastPageName', 'confirmDeleteMsg', 'sidebar'));
+        $navBar = $this->navBar;
+        return view('navigationMenu.index', compact('navigationMenus', 'lastPageName', 'confirmDeleteMsg', 'sidebar', 'navBar'));
     }
 
     /**
@@ -57,7 +60,7 @@ class NavigationMenusController extends Controller
         $lastPage = $request->query($this->lastPageName);
         $paginationPageName = $this->paginationPageName;
         $sidebar = $this->sidebar;
-
+        $navBar = $this->navBar;
         return view(
             'navigationMenu.create',
             compact(
@@ -65,7 +68,8 @@ class NavigationMenusController extends Controller
                 'lastPage',
                 'paginationPageName',
                 'sidebar',
-                'navigationMenuStatusLookups'
+                'navigationMenuStatusLookups',
+                'navBar'
             )
         );
     }
@@ -119,7 +123,7 @@ class NavigationMenusController extends Controller
         $lastPage = $request->query($this->lastPageName);
         $paginationPageName = $this->paginationPageName;
         $sidebar = $this->sidebar;
-
+        $navBar = $this->navBar;
         $navigationMenuStatusLookups = $this->navigationMenuStatusLookups;
 
         return view(
@@ -130,7 +134,8 @@ class NavigationMenusController extends Controller
                 'lastPage',
                 'paginationPageName',
                 'sidebar',
-                'navigationMenuStatusLookups'
+                'navigationMenuStatusLookups',
+                'navBar'
             )
         );
     }
