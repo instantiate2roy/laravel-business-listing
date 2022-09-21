@@ -1,0 +1,63 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #bdbcbc;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:hover {
+    background-color: beige;
+}
+
+.businessEditIcon {
+    background-color: transparent;
+}
+
+.businessEditIcon:hover {
+    background-color: grey;
+    color: white;
+}
+
+.businessDeleteIcon {
+    color: red;
+    background-color: transparent;
+}
+
+.businessDeleteIcon:hover {
+    background-color: orange;
+    color: white;
+}
+
+.deleteBusinessXIcon {
+    color: red;
+}
+
+.businessesCreateIcon {
+    color: white;
+}
+
+.businessesBackButton {
+    float: left;
+    color: blue;
+}
+
+.createTH {
+    background-color: blue;
+}
+
+.businessesCardTitle {
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+}
+
+.addNewBusinessesBtn {
+    float: right;
+    color: blue;
+}

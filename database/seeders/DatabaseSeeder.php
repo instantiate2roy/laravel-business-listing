@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserRoleSeeder::class,
             NavigationMenuSeeder::class,
-            NavigationItemSeeder::class
+            NavigationItemSeeder::class,
+            BusinessSeeder::class
 
         ]);
     }

@@ -1094,6 +1094,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
 
 /***/ }),
 
+/***/ "./resources/css/businessesScreen.css":
+/*!********************************************!*\
+  !*** ./resources/css/businessesScreen.css ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9yZXNvdXJjZXMvY3NzL2J1c2luZXNzZXNTY3JlZW4uY3NzLmpzIiwibWFwcGluZ3MiOiI7QUFBQSIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL3Jlc291cmNlcy9jc3MvYnVzaW5lc3Nlc1NjcmVlbi5jc3M/ZGM2NCJdLCJzb3VyY2VzQ29udGVudCI6WyIvLyBleHRyYWN0ZWQgYnkgbWluaS1jc3MtZXh0cmFjdC1wbHVnaW5cbmV4cG9ydCB7fTsiXSwibmFtZXMiOltdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./resources/css/businessesScreen.css\n");
+
+/***/ }),
+
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -1310,6 +1321,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 			"css/ranksScreen": 0,
 /******/ 			"css/lookupScreens": 0,
 /******/ 			"css/sidebar": 0,
+/******/ 			"css/businessesScreen": 0,
 /******/ 			"css/navigationItemsScreen": 0,
 /******/ 			"css/navigationMenusScreen": 0,
 /******/ 			"css/userRolesScreen": 0,
@@ -1363,17 +1375,18 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/js/app.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/sass/app.scss")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/css/sidebar.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/css/lookupScreens.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/css/ranksScreen.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/css/rolesScreen.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/css/app.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/css/groupsScreen.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/css/userRolesScreen.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/css/navigationMenusScreen.css")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/css/navigationItemsScreen.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/businessesScreen","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/businessesScreen","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/sass/app.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/businessesScreen","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/css/sidebar.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/businessesScreen","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/css/lookupScreens.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/businessesScreen","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/css/ranksScreen.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/businessesScreen","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/css/rolesScreen.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/businessesScreen","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/css/app.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/businessesScreen","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/css/groupsScreen.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/businessesScreen","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/css/userRolesScreen.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/businessesScreen","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/css/navigationMenusScreen.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/businessesScreen","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/css/navigationItemsScreen.css")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app","css/rolesScreen","css/ranksScreen","css/lookupScreens","css/sidebar","css/businessesScreen","css/navigationItemsScreen","css/navigationMenusScreen","css/userRolesScreen","css/groupsScreen"], () => (__webpack_require__("./resources/css/businessesScreen.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()
