@@ -40,5 +40,10 @@ class LookupSeeder extends Seeder
             ['lk_key' => 'ACTV', 'lk_short_description' => 'Active'],
             ['lk_key' => 'INACTV', 'lk_short_description' => 'In Active']
         ))->create(['lk_scope' => 'NAV_MENUS_ITEMS_STATUS']);
+
+        Lookup::factory()->count(2)->state(new Sequence(
+            ['lk_key' => 'ACTV', 'lk_short_description' => 'Active'],
+            ['lk_key' => 'INACTV', 'lk_short_description' => 'In Active']
+        ))->create(['lk_scope' => 'BUSINESS_STATUS']);
     }
 }

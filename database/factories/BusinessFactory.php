@@ -35,4 +35,17 @@ class BusinessFactory extends Factory
             ];
         });
     }
+
+    public function activated()
+    {
+        return $this->state(function () {
+            return [
+                'biz_code' => '',
+                'biz_name' => '',
+                'biz_status' => 'ACTV',
+                'biz_image_path' => '/business_listing/default.jpg',
+                'biz_owner' => ''
+            ];
+        });
+    }
 }

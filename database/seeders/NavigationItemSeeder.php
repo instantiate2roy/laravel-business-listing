@@ -23,7 +23,7 @@ class NavigationItemSeeder extends Seeder
                 [
                     'nav_code' => 'BUS',
                     'nav_name' => 'Businesses',
-                    'nav_url' => '#',
+                    'nav_url' => '/businesses',
                     'nav_menu' => 'TOP_LEFT_NAV_BAR',
                 ],
                 [

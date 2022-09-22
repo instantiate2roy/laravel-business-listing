@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CustomClasses\NavMenu;
 use App\CustomClasses\UserChecking;
+use App\Http\Requests\AddBusinessRequest;
 use App\Models\Business;
 use Illuminate\Http\Request;
 use stdClass;
@@ -42,10 +43,24 @@ class BusinessesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
         $navbar =  $this->setNavItems();
+
+        $lastPageName = $this->lastPageName;
+        $lastPage = $request->query($this->lastPageName);
+        $paginationPageName = $this->paginationPageName;
+
+        return view(
+            'business.create',
+            compact(
+                'lastPageName',
+                'lastPage',
+                'paginationPageName',
+                'navbar'
+            )
+        );
     }
 
     /**
@@ -54,9 +69,13 @@ class BusinessesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AddBusinessRequest $request)
     {
         //
+        $business = Business::factory()->activated();
+        dd(ini_get('upload_max_filesize'));
+        
+
     }
 
     /**
