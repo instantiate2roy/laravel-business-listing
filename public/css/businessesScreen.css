@@ -61,3 +61,12 @@ tr:hover {
     float: right;
     color: blue;
 }
+
+.deleteBusinessesBtn {
+    float: right;
+    color: red;
+}
+
+.indexImage {
+    height: 50px
+}

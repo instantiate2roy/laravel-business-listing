@@ -32,9 +32,9 @@ class BusinessesController extends Controller
     {
         //
         $navBar =  $this->setNavItems();
-        $businesses = Business::where([])
+        $businesses = Business::where('biz_owner', Auth::user()->id)
             ->orderByDesc('created_at')
-            ->paginate($perPage = 5, $columns = ['*'], $pageName = $this->paginationPageName);
+            ->paginate($perPage = 12, $columns = ['*'], $pageName = $this->paginationPageName);
         $confirmDeleteMsg = 'Are you sure you want to delete this Business?';
         $lastPageName = $this->lastPageName;
 
@@ -90,7 +90,7 @@ class BusinessesController extends Controller
         $business->biz_code = $request->input('biz_code');
         $business->biz_owner = Auth::user()->id;
         $business->biz_image_path = $path;
-    
+
 
         $created = $business->save();
 
