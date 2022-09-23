@@ -6,7 +6,10 @@ use App\CustomClasses\NavMenu;
 use App\CustomClasses\UserChecking;
 use App\Http\Requests\AddBusinessRequest;
 use App\Models\Business;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use stdClass;
 
 class BusinessesController extends Controller
@@ -72,10 +75,31 @@ class BusinessesController extends Controller
     public function store(AddBusinessRequest $request)
     {
         //
-        $business = Business::factory()->activated();
-        dd(ini_get('upload_max_filesize'));
-        
 
+        $path = $request->file('biz_image_path')->store('business_listing', 'public');
+        if (!Storage::disk('public')->exists($path)) {
+
+            return redirect('businesses/create')
+                ->with('error', 'Failed to save file to server!')
+                ->withInput();
+        }
+
+        $business = Business::factory()->activated()->make();
+
+        $business->biz_name = $request->input('biz_name');
+        $business->biz_code = $request->input('biz_code');
+        $business->biz_owner = Auth::user()->id;
+        $business->biz_image_path = $path;
+    
+
+        $created = $business->save();
+
+        if (!$created) {
+            return redirect('businesses/create')
+                ->with('error', 'Failed create new Business!')
+                ->withInput();
+        }
+        return redirect('/businesses');
     }
 
     /**
