@@ -36,7 +36,7 @@ class BusinessesController extends Controller
     public function index()
     {
         //
-        $navBar =  $this->setNavItems();
+        $navBar =  $this->getNavItems();
         $businesses = Business::where('biz_owner', Auth::user()->id)
             ->orderByDesc('created_at')
             ->paginate($perPage = 5, $columns = ['*'], $pageName = $this->paginationPageName);
@@ -54,7 +54,7 @@ class BusinessesController extends Controller
     public function create(Request $request)
     {
         //
-        $navbar =  $this->setNavItems();
+        $navbar =  $this->getNavItems();
 
         $lastPageName = $this->lastPageName;
         $lastPage = $request->query($this->lastPageName);
@@ -116,7 +116,7 @@ class BusinessesController extends Controller
     public function show($id)
     {
         //
-        $navbar =  $this->setNavItems();
+        $navbar =  $this->getNavItems();
     }
 
     /**
@@ -128,7 +128,7 @@ class BusinessesController extends Controller
     public function edit(Request $request, $id)
     {
         //
-        $navbar =  $this->setNavItems();
+        $navbar =  $this->getNavItems();
         $business = Business::find($id);
 
         $lastPageName = $this->lastPageName;
@@ -222,7 +222,7 @@ class BusinessesController extends Controller
     }
 
 
-    private function setNavItems()
+    private function getNavItems()
     {
         $navBar  = new stdClass;
         $navBar->right = NavMenu::get('TOP_RIGHT_NAV_BAR', 'ACTV');

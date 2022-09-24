@@ -29,13 +29,13 @@ class NavigationItemSeeder extends Seeder
                 [
                     'nav_code' => 'LIST',
                     'nav_name' => 'Listings',
-                    'nav_url' => '#',
+                    'nav_url' => '/listings',
                     'nav_menu' => 'TOP_LEFT_NAV_BAR',
                 ],
                 [
                     'nav_code' => 'JB',
                     'nav_name' => 'Jobs',
-                    'nav_url' => '#',
+                    'nav_url' => '/jobs',
                     'nav_menu' => 'TOP_LEFT_NAV_BAR',
                 ],
 
