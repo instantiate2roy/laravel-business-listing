@@ -23,10 +23,62 @@
                         {{ $businesses->links() }}
                         <br>
                         <hr>
+                        <table>
+                            <thead>
+                                <tr>
 
-                        @foreach ($businesses as $business)
-                            
-                        @endforeach
+                                    <th>Code</th>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($businesses as $business)
+                                    <tr>
+
+
+                                        <td>
+                                            {{ $business->biz_code }}</td>
+                                        <td>
+                                            {{ $business->biz_name }}</td>
+                                        <td>
+                                            {{ $business->status }}</td>
+
+                                        <td>
+                                            @if ($business->CanEdit)
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <a
+                                                        href="/businesses/{{ $business->id }}/edit?{{ $lastPageName }}={{ $businesses->currentPage() }}"><button
+                                                            class='fa fa-pencil businessEditIcon'></button>
+                                                    </a>
+                                                </div>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($business->CanDelete)
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    {!! Form::open([
+                                                        'action' => ['App\Http\Controllers\BusinessesController@destroy', $business->id],
+                                                        'method' => 'POST',
+                                                        'id' => 'deleteBusiness',
+                                                        'onSubmit' => 'return doSubmit(event, "deleteBusiness",' . json_encode($confirmDeleteMsg) . ')',
+                                                    ]) !!}
+
+                                                    {{ Form::hidden('_method', 'DELETE') }}
+                                                    {{ Form::hidden($lastPageName, $businesses->currentPage()) }}
+                                                    <button class='fa fa-close businessDeleteIcon' type="submit"></button>
+                                                    {!! Form::close() !!}
+
+                                                </div>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                         <hr>
                         <br>
                         {{ $businesses->links() }}

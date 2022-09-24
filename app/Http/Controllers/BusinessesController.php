@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\CustomClasses\Lookups;
 use App\CustomClasses\NavMenu;
 use App\CustomClasses\UserChecking;
 use App\Http\Requests\AddBusinessRequest;
+use App\Http\Requests\EditBusinessRequest;
 use App\Models\Business;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use stdClass;
 
@@ -16,11 +18,14 @@ class BusinessesController extends Controller
 {
     protected $paginationPageName = 'groupsPage';
     protected $lastPageName = 'groupsLastPage';
-    protected $groupStatusLookups = [];
+    protected $businessStatusLookups = [];
+    protected $storageDisk = 'public';
 
-    function __construct()
+    function __construct(Lookups $lookups)
     {
         $this->middleware('auth');
+
+        $this->businessStatusLookups = $lookups::getSimple('GROUPS_STATUS');
     }
 
     /**
@@ -34,7 +39,7 @@ class BusinessesController extends Controller
         $navBar =  $this->setNavItems();
         $businesses = Business::where('biz_owner', Auth::user()->id)
             ->orderByDesc('created_at')
-            ->paginate($perPage = 12, $columns = ['*'], $pageName = $this->paginationPageName);
+            ->paginate($perPage = 5, $columns = ['*'], $pageName = $this->paginationPageName);
         $confirmDeleteMsg = 'Are you sure you want to delete this Business?';
         $lastPageName = $this->lastPageName;
 
@@ -76,8 +81,8 @@ class BusinessesController extends Controller
     {
         //
 
-        $path = $request->file('biz_image_path')->store('business_listing', 'public');
-        if (!Storage::disk('public')->exists($path)) {
+        $path = $request->file('biz_image_path')->store('business_listing', $this->storageDisk);
+        if (!Storage::disk($this->storageDisk)->exists($path)) {
 
             return redirect('businesses/create')
                 ->with('error', 'Failed to save file to server!')
@@ -120,10 +125,29 @@ class BusinessesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         //
         $navbar =  $this->setNavItems();
+        $business = Business::find($id);
+
+        $lastPageName = $this->lastPageName;
+        $lastPage = $request->query($this->lastPageName);
+        $paginationPageName = $this->paginationPageName;
+        $businessStatusLookups = $this->businessStatusLookups;
+
+        return view(
+            'business.update',
+            compact(
+                'business',
+                'lastPageName',
+                'lastPage',
+                'paginationPageName',
+
+                'businessStatusLookups',
+                'navbar'
+            )
+        );
     }
 
     /**
@@ -133,9 +157,43 @@ class BusinessesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditBusinessRequest $request, $id)
     {
         //
+        $lastPage = $request->input($this->lastPageName);
+
+        $business = Business::find($id);
+        
+        $authorizedToUpdate = Gate::allows('update', $business);
+        if (!$authorizedToUpdate) {
+            abort(403, 'Unauthorized Access.');
+        }
+
+        if ($request->hasFile('biz_image_path')) {
+            $this->purgeFile($business->getOriginal('biz_image_path'));
+        }
+
+        $path = $request->file('biz_image_path')->store('business_listing', 'public');
+        if (!Storage::disk('public')->exists($path)) {
+
+            return redirect('businesses/create')
+                ->with('error', 'Failed to save file to server!')
+                ->withInput();
+        }
+
+        $business->biz_name = $request->input('biz_name');
+        $business->biz_code = $request->input('biz_code');
+        $business->biz_image_path = $path;
+
+        $saved = $business->save();
+
+        if (!$saved) {
+            return redirect("businesses/$business->id/edit?$this->lastPageName=$lastPage")
+                ->with('error', 'Update Failed!')
+                ->withInput();
+        }
+
+        return redirect("businesses/$business->id/edit?$this->lastPageName=$lastPage")->with('success', 'Update Successful');
     }
 
     /**
@@ -144,9 +202,23 @@ class BusinessesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //
+        $lastPage = $request->input($this->lastPageName);
+
+        $business = Business::find($id);
+
+        $authorizedToDelete = Gate::allows('delete', $business);
+        if (!$authorizedToDelete) {
+            abort(403, 'Unauthorized Access.');
+        }
+        
+        $deleted = $business->delete();
+        if (!$deleted) {
+            return redirect("/businesses?$this->paginationPageNamee=$lastPage")->with('error', 'Delete Failed!');
+        }
+        return redirect("/businesses?$this->paginationPageName=$lastPage")->with('success', 'Delete Successfully');
     }
 
 
@@ -158,5 +230,14 @@ class BusinessesController extends Controller
             $navBar->left = NavMenu::get('TOP_LEFT_NAV_BAR', 'ACTV');
         }
         return $navBar;
+    }
+
+    private function purgeFile($filePath)
+    {
+        $ok = false;
+        if (Storage::disk($this->storageDisk)->exists($filePath)) {
+            $ok =  Storage::disk($this->storageDisk)->delete($filePath);
+        }
+        return $ok;
     }
 }
