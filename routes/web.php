@@ -73,3 +73,5 @@ Route::middleware(['isSecurityAdmin'])->group(function () {
 });
 
 Route::resource('/businesses', App\Http\Controllers\BusinessesController::class);
+
+Route::get('/listings', [App\Http\Controllers\ListingsController::class, 'index'])->name('listings');
