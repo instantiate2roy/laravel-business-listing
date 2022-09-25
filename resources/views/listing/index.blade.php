@@ -7,8 +7,8 @@
             <div class='card'>
                 <div class="card-header">
                     <div class="businessesCardSearch">
-                        <input type="text" placeholder="Search.." name="search">
-                        <button type="submit"><i class="fa fa-search"></i></button>
+                        <input type="text" placeholder="Search.." value='{{ $listings->prevSearch }}' name="search">
+                        <button class="btn btn-secondary" id='searchBtn'><i class="fa fa-search"></i></button>
                     </div>
                     <div class="businessesCardTitle">Listings</div>
                 </div>
@@ -17,34 +17,54 @@
                         {{ $listings->links() }}
                         <br>
                         <hr>
-                        <table>
+
+                        <table class="table">
                             <thead>
                                 <tr>
 
-                                    <th>Code</th>
-                                    <th>Name</th>
-                                    <th>Status</th>
-
-
+                                    <th scope="col"></th>
+                                    <th scope="col">Business Details</th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
+
                                 @foreach ($listings as $listing)
-                                    <tr>
+                                    <tr class="inner-box">
 
+                                        <td width="25%">
+                                            <div class="event-img">
+                                                <img src="/storage/{{ $listing->biz_image_path }}" alt="" width="200"
+                                                    height="200" />
+                                            </div>
+                                        </td>
+                                        <td width="60%">
+                                            <div class="event-wrap">
+                                                <h2><strong><u>{{ $listing->biz_name }}</strong></u></h2>
+                                                <div class="meta">
+                                                    <p>{!! $listing->biz_description !!}</p>
+                                                    <div class="organizers">
+                                                        <a href="#">{{ $listing->owner }}</a>
+                                                    </div>
 
-                                        <td>
-                                            {{ $listing->biz_code }}</td>
-                                        <td>
-                                            {{ $listing->biz_name }}</td>
-                                        <td>
-                                            {{ $listing->status }}</td>
-
-
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td width="15%">
+                                            <div class="primary-btn">
+                                                <a class="btn btn-success"
+                                                    style="display: flex;
+                                                    justify-content: center;
+                                                    align-items: center;      
+                                                    align-content: center;"
+                                                    href="#">Offer Job</a>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
+
                         <hr>
                         <br>
                         {{ $listings->links() }}
@@ -61,5 +81,20 @@
 
             </div>
         </div>
+        <script type="text/javascript">
+            document.addEventListener("DOMContentLoaded", function() {
+                let searchBtn = $('#searchBtn');
+                searchBtn.click(function() {
+                    let searchInput = $('input[name="search"]');
+                    if (searchInput.val().length > 0) {
+                        window.location.href = "/listings?listingSearchParam=" + searchInput.val();
+                    } else {
+                        window.location.href = "/listings";
+                    }
+
+                });
+
+            });
+        </script>
     @endsection
 @endAuth

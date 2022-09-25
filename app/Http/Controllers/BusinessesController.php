@@ -93,6 +93,7 @@ class BusinessesController extends Controller
 
         $business->biz_name = $request->input('biz_name');
         $business->biz_code = $request->input('biz_code');
+        $business->biz_description = $request->input('biz_description');
         $business->biz_owner = Auth::user()->id;
         $business->biz_image_path = $path;
 
@@ -163,7 +164,7 @@ class BusinessesController extends Controller
         $lastPage = $request->input($this->lastPageName);
 
         $business = Business::find($id);
-        
+
         $authorizedToUpdate = Gate::allows('update', $business);
         if (!$authorizedToUpdate) {
             abort(403, 'Unauthorized Access.');
@@ -171,19 +172,20 @@ class BusinessesController extends Controller
 
         if ($request->hasFile('biz_image_path')) {
             $this->purgeFile($business->getOriginal('biz_image_path'));
-        }
+            $path = $request->file('biz_image_path')->store('business_listing', 'public');
+            if (!Storage::disk('public')->exists($path)) {
 
-        $path = $request->file('biz_image_path')->store('business_listing', 'public');
-        if (!Storage::disk('public')->exists($path)) {
-
-            return redirect('businesses/create')
-                ->with('error', 'Failed to save file to server!')
-                ->withInput();
+                return redirect('businesses/create')
+                    ->with('error', 'Failed to save file to server!')
+                    ->withInput();
+            }
+            $business->biz_image_path = $path;
         }
 
         $business->biz_name = $request->input('biz_name');
         $business->biz_code = $request->input('biz_code');
-        $business->biz_image_path = $path;
+        $business->biz_description = $request->input('biz_description');
+
 
         $saved = $business->save();
 
@@ -213,7 +215,7 @@ class BusinessesController extends Controller
         if (!$authorizedToDelete) {
             abort(403, 'Unauthorized Access.');
         }
-        
+
         $deleted = $business->delete();
         if (!$deleted) {
             return redirect("/businesses?$this->paginationPageNamee=$lastPage")->with('error', 'Delete Failed!');

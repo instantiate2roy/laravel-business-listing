@@ -37,6 +37,11 @@
                     <br>
 
                     <div class="form-group">
+                        {!! Form::label('biz_description', 'Business Description') !!}
+                        {!! Form::textarea('biz_description', $business->biz_description, ['class' => 'form-control', 'id' => 'ck_editor_element']) !!}
+                    </div>
+                    <br>
+                    <div class="form-group">
                         {!! Form::label('biz_status', 'Business Status') !!}
 
                         {!! Form::select('biz_status', $businessStatusLookups, $business->biz_status, [
