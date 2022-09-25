@@ -28,6 +28,17 @@ class Business extends Model
         return $val;
     }
 
+    public function getOwnerAttribute()
+    {
+        $val = $this->biz_owner;
+        $lookup = User::where('id', $val)->first();
+        if ($lookup) {
+            $val = $lookup->name;
+        }
+
+        return $val;
+    }
+
     public function getCanDeleteAttribute()
     {
         $val = 0;

@@ -36,6 +36,12 @@
                     <br>
 
                     <div class="form-group">
+                        {!! Form::label('biz_description', 'Business Description') !!}
+                        {!! Form::textarea('biz_description', '', ['class' => 'form-control', 'id' => 'ck_editor_element']) !!}
+                    </div>
+                    <br>
+
+                    <div class="form-group">
                         {{ Form::label('biz_image_path', 'Business Display Image') }}
                         {{ Form::file('biz_image_path') }}
                     </div>

@@ -27,8 +27,9 @@
                             <thead>
                                 <tr>
 
-                                    <th>Code</th>
-                                    <th>Name</th>
+                                    <th>Business Code</th>
+                                    <th>Business Name</th>
+                                    <th>Business Description</th>
                                     <th>Status</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
@@ -44,6 +45,8 @@
                                             {{ $business->biz_code }}</td>
                                         <td>
                                             {{ $business->biz_name }}</td>
+                                        <td>
+                                            {!!$business->biz_description !!}</td>
                                         <td>
                                             {{ $business->status }}</td>
 
