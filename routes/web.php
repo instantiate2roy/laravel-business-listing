@@ -69,9 +69,10 @@ Route::middleware(['isSecurityAdmin'])->group(function () {
     Route::resource('/navigationMenus', App\Http\Controllers\NavigationMenusController::class);
 
     Route::resource('/navigationItems', App\Http\Controllers\NavigationItemsController::class);
-    
 });
 
 Route::resource('/businesses', App\Http\Controllers\BusinessesController::class);
 
 Route::get('/listings', [App\Http\Controllers\ListingsController::class, 'index'])->name('listings');
+
+Route::resource('/jobs', App\Http\Controllers\JobsController::class);
