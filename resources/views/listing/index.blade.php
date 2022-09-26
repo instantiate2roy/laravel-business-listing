@@ -57,7 +57,8 @@
                                                     justify-content: center;
                                                     align-items: center;      
                                                     align-content: center;"
-                                                    href="#">Offer Job</a>
+                                                    href="/jobs/create?{{ $lastPageName }}={{ $listings->currentPage() }}&b={{ $listing->biz_code }}">Offer
+                                                    Job</a>
                                             </div>
                                         </td>
                                     </tr>

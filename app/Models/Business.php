@@ -14,7 +14,7 @@ class Business extends Model
 
     public function user()
     {
-        $this->hasOne(User::class, 'id', 'biz_owner');
+        return $this->hasOne(User::class, 'id', 'biz_owner');
     }
 
     public function getStatusAttribute()
