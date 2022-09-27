@@ -1,94 +1,77 @@
 @Auth
     @extends('layouts.app')
     @section('content')
-        <link href="{{ asset('css/businessesScreen.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/jobsScreen.css') }}" rel="stylesheet">
         <div class="container">
 
             <div class='card'>
                 <div class="card-header">
-                    <div class="addNewBusinessesBtn">
-                        <div class="d-flex align-items-center justify-content-center">
-                            <a href="/businesses/create?{{ $lastPageName }}={{ $businesses->currentPage() }}">
-                                <button class="btn btn-primary">
-                                    <span class="fa fa-plus businessesCreateIcon" aria-hidden="true">
-                                    </span>
-                                </button>
-                            </a>
-                        </div>
+                    <div class="jobsCardSearch">
+                        <input type="text" placeholder="Search.." value='{{ $jobs->prevSearch }}' name="search">
+                        <button class="btn btn-secondary" id='searchBtn'><i class="fa fa-search"></i></button>
                     </div>
-                    <div class="businessesCardTitle">Businesses</div>
+                    <div class="jobCardTitle">Jobs</div>
                 </div>
                 <div class="card-body">
-                    @if ($businesses->count() > 0)
-                        {{ $businesses->links() }}
+                    @if ($jobs->count() > 0)
+                        {{ $jobs->links() }}
                         <br>
                         <hr>
-                        <table>
+
+                        <table class="table">
                             <thead>
                                 <tr>
 
-                                    <th>Business Code</th>
-                                    <th>Business Name</th>
-                                    <th>Business Description</th>
-                                    <th>Status</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
-
+                                    <th scope="col"></th>
+                                    <th scope="col">Business Details</th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($businesses as $business)
-                                    <tr>
 
+                                @foreach ($jobs as $job)
+                                    <tr class="inner-box">
 
-                                        <td>
-                                            {{ $business->biz_code }}</td>
-                                        <td>
-                                            {{ $business->biz_name }}</td>
-                                        <td>
-                                            {!!$business->biz_description !!}</td>
-                                        <td>
-                                            {{ $business->status }}</td>
-
-                                        <td>
-                                            @if ($business->CanEdit)
-                                                <div class="d-flex align-items-center justify-content-center">
-                                                    <a
-                                                        href="/businesses/{{ $business->id }}/edit?{{ $lastPageName }}={{ $businesses->currentPage() }}"><button
-                                                            class='fa fa-pencil businessEditIcon'></button>
-                                                    </a>
-                                                </div>
-                                            @endif
+                                        <td width="25%">
+                                            <div class="event-img">
+                                                <img src="/storage/{{ $job->biz_image_path }}" alt="" width="200"
+                                                    height="200" />
+                                            </div>
                                         </td>
-                                        <td>
-                                            @if ($business->CanDelete)
-                                                <div class="d-flex align-items-center justify-content-center">
-                                                    {!! Form::open([
-                                                        'action' => ['App\Http\Controllers\BusinessesController@destroy', $business->id],
-                                                        'method' => 'POST',
-                                                        'id' => 'deleteBusiness',
-                                                        'onSubmit' => 'return doSubmit(event, "deleteBusiness",' . json_encode($confirmDeleteMsg) . ')',
-                                                    ]) !!}
-
-                                                    {{ Form::hidden('_method', 'DELETE') }}
-                                                    {{ Form::hidden($lastPageName, $businesses->currentPage()) }}
-                                                    <button class='fa fa-close businessDeleteIcon' type="submit"></button>
-                                                    {!! Form::close() !!}
+                                        <td width="60%">
+                                            <div class="event-wrap">
+                                                <h2><strong><u>{{ $job->biz_name }}</strong></u></h2>
+                                                <div class="meta">
+                                                    <p>{!! $job->job_details !!}</p>
+                                                    <div class="organizers">
+                                                        
+                                                    </div>
 
                                                 </div>
-                                            @endif
+                                            </div>
+                                        </td>
+                                        <td width="15%">
+                                            <div class="primary-btn">
+                                                <a class="btn btn-success"
+                                                    style="display: flex;
+                                                    justify-content: center;
+                                                    align-items: center;      
+                                                    align-content: center;"
+                                                    href="">Do Action</a>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
+
                         <hr>
                         <br>
-                        {{ $businesses->links() }}
+                        {{ $jobs->links() }}
                     @else
                         <h1>Ooops !</h1>
                         <br>
-                        <p> No Businesses Defined Yet.</p>
+                        <p> No jobs Defined Yet.</p>
                     @endif
                 </div>
                 <div class="card-footer">
@@ -98,5 +81,20 @@
 
             </div>
         </div>
+        <script type="text/javascript">
+            document.addEventListener("DOMContentLoaded", function() {
+                let searchBtn = $('#searchBtn');
+                searchBtn.click(function() {
+                    let searchInput = $('input[name="search"]');
+                    if (searchInput.val().length > 0) {
+                        window.location.href = "/jobs?jobSearchParam=" + searchInput.val();
+                    } else {
+                        window.location.href = "/jobs";
+                    }
+
+                });
+
+            });
+        </script>
     @endsection
 @endAuth

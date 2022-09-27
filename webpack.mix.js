@@ -22,6 +22,8 @@ mix.js('resources/js/app.js', 'public/js')
     .css('resources/css/userRolesScreen.css', 'public/css')
     .css('resources/css/navigationMenusScreen.css', 'public/css')
     .css('resources/css/listingsScreen.css', 'public/css')
+    .css('resources/css/jobsScreen.css', 'public/css')
+
     .css('resources/css/navigationItemsScreen.css', 'public/css')
     .css('resources/css/businessesScreen.css', 'public/css')
 

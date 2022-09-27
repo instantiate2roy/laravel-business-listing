@@ -10,6 +10,7 @@ use App\Models\Business;
 use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use stdClass;
 
 class JobsController extends Controller
@@ -28,9 +29,31 @@ class JobsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        $navBar =  $this->getNavItems();
+
+        $whereClause1 = [['jobs.job_customer',  Auth()->user()->id]];
+        $whereClause2 = [['businesses.biz_owner',  Auth()->user()->id]];
+        if ($request->query('jobSearchParam')) {
+            array_push($whereClause1, ['jobs.job_details', 'LIKE', '%' . $request->query('listingSearchParam') . '%']);
+            array_push($whereClause2, ['jobs.job_details', 'LIKE', '%' . $request->query('listingSearchParam') . '%']);
+        }
+
+        $jobs = DB::table('jobs')
+            ->join('businesses', 'jobs.job_business', '=', 'businesses.biz_code')
+            ->where($whereClause1)
+            ->orWhere($whereClause2)
+            ->orderByDesc('jobs.created_at')
+            ->select('jobs.*', 'businesses.biz_owner', 'businesses.biz_name', 'businesses.biz_image_path')
+            ->paginate($perPage = 5, $columns = ['*'], $pageName = $this->paginationPageName);
+
+        $jobs->prevSearch = $request->query('jobSearchParam');
+        $lastPageName = $this->lastPageName;
+
+
+        return view('job.index', compact('jobs', 'lastPageName', 'navBar'));
     }
 
     /**
