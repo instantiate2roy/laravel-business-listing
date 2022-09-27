@@ -38,10 +38,4 @@ class ListingsController extends Controller
 
         return view('listing.index', compact('listings', 'lastPageName', 'navBar'));
     }
-    public function autocompleteSearch(Request $request)
-    {
-        $query = $request->get('query');
-        $filterResult = Business::where([['biz_name', 'LIKE', '%' . $query . '%'], ['biz_status', 'ACTV']])->get();
-        return response()->json($filterResult);
-    }
 }
