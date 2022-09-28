@@ -36,7 +36,7 @@ class JobFactory extends Factory
                 'job_customer' => '',
                 'job_details' => '',
                 'job_expiry' => '',
-                'job_status' => 'NEW'
+                'job_status' => 'OPEN'
             ];
         });
     }

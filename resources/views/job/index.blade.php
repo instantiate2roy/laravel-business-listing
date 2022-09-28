@@ -40,11 +40,15 @@
                                         </td>
                                         <td width="60%">
                                             <div class="event-wrap">
-                                                <h2><strong><u>{{ $job->biz_name }}</strong></u></h2>
+                                                <h2><strong><u>{{ $job->biz_name }}</strong></u> (
+                                                    {{ $job->lk_short_description }} )</h2>
+                                                <br>
                                                 <div class="meta">
+                                                    <strong>Details:</strong>
                                                     <p>{!! $job->job_details !!}</p>
+                                                    <br>
                                                     <div class="organizers">
-                                                        
+                                                        <p>expires at: {!! $job->job_expiry !!}</p>
                                                     </div>
 
                                                 </div>
@@ -52,12 +56,64 @@
                                         </td>
                                         <td width="15%">
                                             <div class="primary-btn">
-                                                <a class="btn btn-success"
-                                                    style="display: flex;
-                                                    justify-content: center;
-                                                    align-items: center;      
-                                                    align-content: center;"
-                                                    href="">Do Action</a>
+                                                @if ($job->user_role == 'OWNER')
+                                                    @if ($job->job_status == 'OPEN')
+                                                        <a class="btn btn-primary"
+                                                            style="display: flex;
+                                                        justify-content: center;
+                                                        align-items: center;      
+                                                        align-content: center;"
+                                                            href="">Start</a>
+
+                                                        <br>
+                                                        <a class="btn btn-danger"
+                                                            style="display: flex;
+                                                        justify-content: center;
+                                                        align-items: center;      
+                                                        align-content: center;"
+                                                            href="">Decline</a>
+                                                        <br>
+                                                    @endif
+                                                    @if ($job->job_status == 'STARTED')
+                                                        <a class="btn btn-success"
+                                                            style="display: flex;
+                                                        justify-content: center;
+                                                        align-items: center;      
+                                                        align-content: center;"
+                                                            href="">Complete</a>
+                                                        <br>
+                                                    @endif
+                                                @else
+                                                    @if ($job->job_status == 'OPEN')
+                                                        <a class="btn btn-danger"
+                                                            style="display: flex;
+                                                        justify-content: center;
+                                                        align-items: center;      
+                                                        align-content: center;"
+                                                            href="">Cancel/Drop</a>
+
+                                                        <br>
+                                                    @endif
+
+                                                    @if ($job->job_status == 'COMPLETED' || $job->job_status == 'DECLINED' || $job->job_status == 'DROPPED')
+                                                        <a class="btn btn-success"
+                                                            style="display: flex;
+                                                        justify-content: center;
+                                                        align-items: center;      
+                                                        align-content: center;"
+                                                            href="">Close</a>
+                                                        <br>
+                                                    @endif
+
+                                                    @if ($job->job_status == 'STARTED')
+                                                        <p> In Progress ....</p>
+                                                        <br>
+                                                    @endif
+                                                @endif
+                                                @if ($job->job_status == 'CLOSED')
+                                                    <p><i> Closed </i></p>
+                                                    <br>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>

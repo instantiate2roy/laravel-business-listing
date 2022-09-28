@@ -34,22 +34,34 @@ class JobsController extends Controller
         //
         $navBar =  $this->getNavItems();
 
-        $whereClause1 = [['jobs.job_customer',  Auth()->user()->id]];
-        $whereClause2 = [['businesses.biz_owner',  Auth()->user()->id]];
+        $whereClause1 = [['jobs.job_customer',  Auth()->user()->id], ['lk_scope', 'JOB_STATUS']];
+        $whereClause2 = [['businesses.biz_owner',  Auth()->user()->id], ['lk_scope', 'JOB_STATUS']];
+
         if ($request->query('jobSearchParam')) {
-            array_push($whereClause1, ['jobs.job_details', 'LIKE', '%' . $request->query('listingSearchParam') . '%']);
-            array_push($whereClause2, ['jobs.job_details', 'LIKE', '%' . $request->query('listingSearchParam') . '%']);
+            array_push($whereClause1, ['jobs.job_details', 'LIKE', '%' . $request->query('jobSearchParam') . '%']);
+            array_push($whereClause2, ['businesses.biz_name', 'LIKE', '%' . $request->query('jobSearchParam') . '%']);
         }
+        
+        $userRoleCaseWhenClause = DB::raw("(CASE WHEN jobs.job_customer = " . Auth()->user()->id . " THEN 'CUSTOMER' ELSE 'OWNER' END) AS user_role");
 
         $jobs = DB::table('jobs')
             ->join('businesses', 'jobs.job_business', '=', 'businesses.biz_code')
+            ->leftJoin('lookups', 'lk_key', '=', 'job_status')
             ->where($whereClause1)
             ->orWhere($whereClause2)
             ->orderByDesc('jobs.created_at')
-            ->select('jobs.*', 'businesses.biz_owner', 'businesses.biz_name', 'businesses.biz_image_path')
+            ->select(
+                'jobs.*',
+                'businesses.biz_owner',
+                'businesses.biz_name',
+                'businesses.biz_image_path',
+                'lk_short_description',
+                $userRoleCaseWhenClause
+            )
             ->paginate($perPage = 5, $columns = ['*'], $pageName = $this->paginationPageName);
 
         $jobs->prevSearch = $request->query('jobSearchParam');
+        
         $lastPageName = $this->lastPageName;
 
 
