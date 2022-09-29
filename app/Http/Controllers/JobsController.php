@@ -11,6 +11,7 @@ use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Stmt\Break_;
 use stdClass;
 
 class JobsController extends Controller
@@ -41,7 +42,7 @@ class JobsController extends Controller
             array_push($whereClause1, ['jobs.job_details', 'LIKE', '%' . $request->query('jobSearchParam') . '%']);
             array_push($whereClause2, ['businesses.biz_name', 'LIKE', '%' . $request->query('jobSearchParam') . '%']);
         }
-        
+
         $userRoleCaseWhenClause = DB::raw("(CASE WHEN jobs.job_customer = " . Auth()->user()->id . " THEN 'CUSTOMER' ELSE 'OWNER' END) AS user_role");
 
         $jobs = DB::table('jobs')
@@ -61,7 +62,7 @@ class JobsController extends Controller
             ->paginate($perPage = 5, $columns = ['*'], $pageName = $this->paginationPageName);
 
         $jobs->prevSearch = $request->query('jobSearchParam');
-        
+
         $lastPageName = $this->lastPageName;
 
 
@@ -151,7 +152,39 @@ class JobsController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         //
+        $action = '';
+        if ($request->input('doAction')) {
+            $action = $request->input('doAction');
+        }
+
+        switch ($action) {
+            case 'start':
+                $saved = $this->updateJob($id, 'STARTED');
+                break;
+            case 'decline':
+                $saved = $this->updateJob($id, 'DECLINED');
+                break;
+            case 'close':
+                $saved = $this->updateJob($id, 'CLOSED');
+                break;
+            case 'complete':
+                $saved = $this->updateJob($id, 'COMPLETED');
+                break;
+            case 'drop':
+                $saved = $this->updateJob($id, 'DROPPED');
+                break;
+            default:
+                $saved = true;
+                break;
+        }
+        $lastPage = $request->input($this->lastPageName);
+        if (!$saved) {
+
+            return redirect("jobs?$this->lastPageName=$lastPage")->with('error', 'Job Update Failed');
+        }
+        return redirect("jobs?$this->lastPageName=$lastPage")->with('success', 'Job Updated successfully');
     }
 
     /**
@@ -174,5 +207,12 @@ class JobsController extends Controller
             $navBar->left = NavMenu::get('TOP_LEFT_NAV_BAR', 'ACTV');
         }
         return $navBar;
+    }
+
+    private function updateJob($id, $status)
+    {
+        $job = Job::find($id);
+        $job->job_status = $status;
+        return $job->save();
     }
 }

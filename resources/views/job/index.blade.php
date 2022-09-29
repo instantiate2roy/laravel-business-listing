@@ -58,50 +58,61 @@
                                             <div class="primary-btn">
                                                 @if ($job->user_role == 'OWNER')
                                                     @if ($job->job_status == 'OPEN')
-                                                        <a class="btn btn-primary"
-                                                            style="display: flex;
-                                                        justify-content: center;
-                                                        align-items: center;      
-                                                        align-content: center;"
-                                                            href="">Start</a>
+                                                        {!! Form::open([
+                                                            'action' => ['App\Http\Controllers\JobsController@update', $job->id],
+                                                            'method' => 'PUT',
+                                                        ]) !!}
+                                                        {{ Form::hidden($lastPageName, $jobs->currentPage()) }}
+                                                        {{ Form::hidden('doAction', 'start') }}
+                                                        {!! Form::submit('Start', ['class' => 'btn btn-primary jobListActionBtn']) !!}
+                                                        {!! Form::close() !!}
+
 
                                                         <br>
-                                                        <a class="btn btn-danger"
-                                                            style="display: flex;
-                                                        justify-content: center;
-                                                        align-items: center;      
-                                                        align-content: center;"
-                                                            href="">Decline</a>
+                                                        {!! Form::open([
+                                                            'action' => ['App\Http\Controllers\JobsController@update', $job->id],
+                                                            'method' => 'PUT',
+                                                        ]) !!}
+                                                        {{ Form::hidden($lastPageName, $jobs->currentPage()) }}
+                                                        {{ Form::hidden('doAction', 'decline') }}
+                                                        {!! Form::submit('Decline', ['class' => 'btn btn-danger jobListActionBtn']) !!}
+                                                        {!! Form::close() !!}
                                                         <br>
                                                     @endif
                                                     @if ($job->job_status == 'STARTED')
-                                                        <a class="btn btn-success"
-                                                            style="display: flex;
-                                                        justify-content: center;
-                                                        align-items: center;      
-                                                        align-content: center;"
-                                                            href="">Complete</a>
+                                                        {!! Form::open([
+                                                            'action' => ['App\Http\Controllers\JobsController@update', $job->id],
+                                                            'method' => 'PUT',
+                                                        ]) !!}
+                                                        {{ Form::hidden($lastPageName, $jobs->currentPage()) }}
+                                                        {{ Form::hidden('doAction', 'complete') }}
+                                                        {!! Form::submit('Complete', ['class' => 'btn btn-success jobListActionBtn']) !!}
+                                                        {!! Form::close() !!}
                                                         <br>
+                                                        
                                                     @endif
                                                 @else
                                                     @if ($job->job_status == 'OPEN')
-                                                        <a class="btn btn-danger"
-                                                            style="display: flex;
-                                                        justify-content: center;
-                                                        align-items: center;      
-                                                        align-content: center;"
-                                                            href="">Cancel/Drop</a>
-
+                                                        {!! Form::open([
+                                                            'action' => ['App\Http\Controllers\JobsController@update', $job->id],
+                                                            'method' => 'PUT',
+                                                        ]) !!}
+                                                        {{ Form::hidden($lastPageName, $jobs->currentPage()) }}
+                                                        {{ Form::hidden('doAction', 'drop') }}
+                                                        {!! Form::submit('Drop', ['class' => 'btn btn-danger jobListActionBtn']) !!}
+                                                        {!! Form::close() !!}
                                                         <br>
                                                     @endif
 
                                                     @if ($job->job_status == 'COMPLETED' || $job->job_status == 'DECLINED' || $job->job_status == 'DROPPED')
-                                                        <a class="btn btn-success"
-                                                            style="display: flex;
-                                                        justify-content: center;
-                                                        align-items: center;      
-                                                        align-content: center;"
-                                                            href="">Close</a>
+                                                        {!! Form::open([
+                                                            'action' => ['App\Http\Controllers\JobsController@update', $job->id],
+                                                            'method' => 'PUT',
+                                                        ]) !!}
+                                                        {{ Form::hidden($lastPageName, $jobs->currentPage()) }}
+                                                        {{ Form::hidden('doAction', 'close') }}
+                                                        {!! Form::submit('Close', ['class' => 'btn btn-success jobListActionBtn']) !!}
+                                                        {!! Form::close() !!}
                                                         <br>
                                                     @endif
 

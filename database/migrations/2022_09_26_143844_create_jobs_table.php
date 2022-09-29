@@ -21,7 +21,7 @@ class CreateJobsTable extends Migration
             $table->mediumText('job_details')->nullable();
             $table->timestamp('job_expiry')->nullable();
             $table->text('job_status')->nullable();
-            $table->softDeletes('delete_at');
+            $table->softDeletes('deleted_at');
         });
     }
 
