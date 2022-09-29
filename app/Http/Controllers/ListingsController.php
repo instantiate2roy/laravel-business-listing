@@ -6,6 +6,7 @@ use App\CustomClasses\NavMenu;
 use App\CustomClasses\UserChecking;
 use App\Models\Business;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use stdClass;
 
 class ListingsController extends Controller
@@ -22,9 +23,9 @@ class ListingsController extends Controller
             $navBar->left = NavMenu::get('TOP_LEFT_NAV_BAR', 'ACTV');
         }
 
-        $whereClauses = [['biz_status', 'ACTV']];
+        $whereClauses = [['biz_status', 'ACTV'], ['biz_owner', '!=', Auth()->user()->id]];
         if ($request->query('listingSearchParam')) {
-            $whereClauses = [['biz_name', 'LIKE', '%' . $request->query('listingSearchParam') . '%'], ['biz_status', 'ACTV']];
+            array_push($whereClauses, ['biz_name', 'LIKE', '%' . $request->query('listingSearchParam') . '%']);
         }
 
         $listings = Business::where($whereClauses)->inRandomOrder()

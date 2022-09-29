@@ -251,6 +251,14 @@ event-schedule-area .section-title .title-text {
     border-radius: 8px;
 }
 
-.job_description{
+.job_description {
     max-width: 50%;
+}
+
+.jobListActionBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
 }
